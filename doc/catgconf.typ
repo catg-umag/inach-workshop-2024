@@ -1,4 +1,6 @@
- #let catg-colors = (
+#import "@preview/octique:0.1.0": *
+
+#let catg-colors = (
   red: rgb("ee273f"),
   blue: rgb("1889c6"),
   green: rgb("0aa55b"),
@@ -102,4 +104,27 @@
   show link: set text(fill: rgb("#144e6e"))
 
   doc
+}
+
+
+#let github-pill(repo) = {
+  set text(weight: "regular", size: 10pt, fill: white)
+  show link: this => {
+    text(this, fill: white)
+  }
+  show: box.with(
+    fill: rgb("#2f7fa2"),
+    inset: 0.3em,
+    radius: 3pt,
+    baseline: 0.4em,
+  )
+  link("https://github.com/" + repo)[
+    #grid(
+      columns: 2,
+      column-gutter: 5pt,
+      align: horizon,
+      octique("mark-github", color: white, width: 0.85em),
+      raw(repo),
+    )
+  ]
 }

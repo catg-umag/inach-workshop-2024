@@ -1,17 +1,18 @@
 #import "@preview/gentle-clues:0.9.0": *
 
+#import "../catgconf.typ": github-pill
+
 
 = Basecalling
 
-Basecalling es el proceso por el cual se convierte la señal eléctrica captada por los dipositivos de Oxford Nanopore en secuencias de nucleótidos. Lograr esta conversión requiere de algoritmos computacionales avanzados, como las redes neuronales LSTM y los transformers utilizados por las opciones de basecalling actuales. Este proceso es crucial porque define la calidad de los datos, lo que afectará directamente la calidad de los análisis posteriores.
+Basecalling es el proceso por el cual se convierte la señal eléctrica captada por los dipositivos de Oxford Nanopore en secuencias de nucleótidos. Esta conversión requiere de algoritmos computacionales avanzados, como las redes neuronales LSTM y los transformers utilizados por las opciones de basecalling actuales. Este proceso es crucial porque define la calidad de los datos, lo que afectará directamente los análisis posteriores.
 
-A lo largo de los años, Oxford Nanopore ha desarrollado distintos basecallers, haciendo uso de distintas tecnologías. El basecaller actual es #link("https://github.com/nanoporetech/dorado")[Dorado]#footnote("https://github.com/nanoporetech/dorado"), el cual se puede utilizar mediante línea de comandos. Adicionalmente, está integrado en MinKNOW.
+Oxford Nanopore ha desarrollado múltiples basecallers a medida que ha habido avances tecnológicos. El basecaller actual es #link("https://github.com/nanoporetech/dorado")[Dorado], el cual se puede utilizar mediante línea de comandos. Adicionalmente, está integrado en MinKNOW.
 
 
 == Precisión del basecalling
 
-Dorado cuenta con múltiples modelos de basecalling, cada uno con diferentes equilibrios entre precisión y capacidad de cómputo requerida para su ejecución. Actualmente, los modelos disponibles son:
-
+Dorado cuenta con múltiples modelos de basecalling, cada uno con diferentes equilibrios entre precisión y requerimientos computacionales. Actualmente, los modelos disponibles son:
 
 
 #align(
@@ -32,9 +33,15 @@ Dorado cuenta con múltiples modelos de basecalling, cada uno con diferentes equ
 )
 
 #figure(
-  image("../images/raw_accuracy.png", width: 75%),
+  image("../images/raw_accuracy.png", width: 80%),
   caption: [
-    Precisión actual de los modelos de basecalling de Oxford Nanopore, usando el Kit V14 y celdas R10.4.1 de PromethION en secuenciación de genoma humano. Fuente: #link("https://nanoporetech.com/es/platform/accuracy")[nanoporetech.com/es/platform/accuracy].
+    Precisión actual de los modelos de basecalling de Oxford Nanopore, usando el Kit V14 y celdas R10.4.1 de PromethION para secuenciación de genoma humano. _Fuente: #link("https://nanoporetech.com/es/platform/accuracy")[nanoporetech.com/es/platform/accuracy]_.
   ],
 )
+
+Usar el modelo `sup` es la opción recomendada si se busca obtener la máxima precisión posible. Sin embargo, este modelo tiene un costo computacional tan elevado que se vuelve impráctico de usar sin hardware dedicado (GPU).
+
+
+== Uso básico de Dorado
+#github-pill("nanoporetech/dorado")
 
