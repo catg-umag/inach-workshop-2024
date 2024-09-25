@@ -1,0 +1,22 @@
+on:
+  push:
+    paths:
+      - 'doc/**.typ'
+      - '.github/workflows/typst_compile.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: typst-community/setup-typst@v3
+
+      - run: typst compile doc/main.typ doc/main.pdf
+      
+      - uses: EndBug/add-and-commit@v9
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          add: '-f doc/main.pdf'
+          message: Add generated PDF
