@@ -13,7 +13,7 @@ jobs:
 
       - uses: typst-community/setup-typst@v3
 
-      - run: typst compile document/main.typ document.pdf
+      - run: typst compile document/main.typ --font-path document/fonts document.pdf
       
       - uses: EndBug/add-and-commit@v9
         with:

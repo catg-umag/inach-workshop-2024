@@ -18,11 +18,6 @@
   number-format: none,
   zebra-fill: none,
   fill: rgb("f9f9f9"),
-  languages: (
-    bash: (
-      name: "Bash",
-    ),
-  ),
 )
 
 #include "sections/1_basecalling.typ"

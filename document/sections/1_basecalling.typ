@@ -45,3 +45,7 @@ Usar el modelo `sup` es la opción recomendada si se busca obtener la máxima pr
 == Uso básico de Dorado
 #github-pill("nanoporetech/dorado")
 
+```sh
+dorado basecaller sup pod5/ > reads.ubam
+```
+

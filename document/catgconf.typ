@@ -17,7 +17,7 @@
     author: authors,
   )
 
-  set text(font: "Lato", lang: "es", size: 10.5pt)
+  set text(font: "Lato", lang: "es", size: 10pt)
   set par(justify: true)
   show raw: set text(font: "Hack")
 
@@ -97,9 +97,7 @@
       bottom: stroke,
     )
   )
-  set table(
-    stroke: frame(rgb("21222C") + 0.8pt),
-  )
+  set table(stroke: frame(rgb("21222C") + 0.8pt))
 
   show link: set text(fill: rgb("#144e6e"))
 
@@ -107,24 +105,24 @@
 }
 
 
+#let pill(content, fill: gray) = {
+  set text(weight: "regular", size: 10pt)
+  show: box.with(fill: fill, inset: 0.3em, radius: 3pt, baseline: 0.4em)
+  content
+}
+
 #let github-pill(repo) = {
-  set text(weight: "regular", size: 10pt, fill: white)
-  show link: this => {
-    text(this, fill: white)
-  }
-  show: box.with(
+  set text(fill: white)
+  show link: this => text(this, fill: white)
+  pill(
+    link("https://github.com/" + repo)[
+      #grid(
+        columns: 2,
+        column-gutter: 5pt,
+        align: horizon,
+        octique("mark-github", color: white, width: 0.85em), raw(repo),
+      )
+    ],
     fill: rgb("#2f7fa2"),
-    inset: 0.3em,
-    radius: 3pt,
-    baseline: 0.4em,
   )
-  link("https://github.com/" + repo)[
-    #grid(
-      columns: 2,
-      column-gutter: 5pt,
-      align: horizon,
-      octique("mark-github", color: white, width: 0.85em),
-      raw(repo),
-    )
-  ]
 }
