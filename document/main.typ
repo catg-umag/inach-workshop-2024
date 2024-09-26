@@ -18,6 +18,7 @@
   number-format: none,
   zebra-fill: none,
   fill: rgb("f9f9f9"),
+  inset: 4pt,
 )
 
 #include "sections/1_basecalling.typ"

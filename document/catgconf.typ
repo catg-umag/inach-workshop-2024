@@ -19,7 +19,7 @@
 
   set text(font: "Lato", lang: "es", size: 10pt)
   set par(justify: true)
-  show raw: set text(font: "Hack")
+  show raw: set text(font: ("Hack", "mono"))
 
   set page(
     paper: "us-letter",
@@ -83,21 +83,20 @@
   ]
 
   // Table
-  show table.cell: set text(size: 0.95em)
-  show table.cell.where(y: 0): set text(weight: "bold")
+  show table.cell: set text(size: 0.9em)
+  show table.cell.where(y: 0): set text(fill: white)
   let frame(stroke) = (
     (x, y) => (
-      left: none,
-      right: none,
-      top: if y < 2 {
-        stroke
-      } else {
-        0pt
-      },
+      left: if x == 0 { stroke } else { 0pt },
+      right: stroke,
+      top: if y < 2 { stroke } else { 0pt },
       bottom: stroke,
     )
   )
-  set table(stroke: frame(rgb("21222C") + 0.8pt))
+  set table(
+    stroke: frame(rgb("#418dc0") + 0.7pt),
+    fill: (_, y) => if y == 0 { rgb("#418dc0") },
+  )
 
   show link: set text(fill: rgb("#144e6e"))
 
@@ -106,8 +105,8 @@
 
 
 #let pill(content, fill: gray) = {
-  set text(weight: "regular", size: 10pt)
-  show: box.with(fill: fill, inset: 0.3em, radius: 3pt, baseline: 0.4em)
+  set text(weight: "regular", size: 9pt)
+  show: box.with(fill: fill, inset: (x: 0.4em, y: 0.3em), radius: 3pt, clip: true)
   content
 }
 
@@ -123,6 +122,6 @@
         octique("mark-github", color: white, width: 0.85em), raw(repo),
       )
     ],
-    fill: rgb("#2f7fa2"),
+    fill: rgb("#596882"),
   )
 }
