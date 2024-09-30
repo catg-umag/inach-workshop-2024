@@ -7,9 +7,15 @@ https://carpentries-lab.github.io/metagenomics-analysis/08-Diversity-tackled-wit
  
 avgdist --> no todas las muestras tienen la misma cantidad de seqs --> sampling
 = Curvas de rarefacción 
-en verdd las podemos ver desde el pipeline
+Las curvas de rarefacción permiten evaluar la riqueza de especies dentro de una comunidad en función del número de secuencias obtenidas. Nos permiten determinar si el número de secuencias obtenidas es suficiente para capturar la diversidad de la comunidad.
 
+Para ello, se realizan muestreos aleatorios y se visualiza el número de especies observadas a medida que aumenta el número de secuencias.
 
+Utilizaremos el paquete `iNEXT` en R para realizar las curvas de rarefacción.
+```R
+D_abund <- iNEXT (df, datatype = 'incidence_filtered')
+plot (D_abund)
+```
 
 = Índices de diversidad alfa
 //https://scienceparkstudygroup.github.io/microbiome-lesson/04-alpha-diversity/index.html
