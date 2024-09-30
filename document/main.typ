@@ -22,4 +22,8 @@
 )
 
 #include "sections/1_basecalling.typ"
+#include "sections/3_taxonomic_assign.typ"
+#include "sections/3_diversity.typ"
+
+
 
