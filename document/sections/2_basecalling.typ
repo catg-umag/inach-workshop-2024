@@ -1,6 +1,6 @@
 #import "@preview/gentle-clues:0.9.0": *
 
-#import "../catgconf.typ": github-pill
+#import "../catgconf.typ": github-pill, cmd
 
 
 = Basecalling
@@ -26,9 +26,9 @@ Dorado cuenta con múltiples modelos de basecalling, cada uno con diferentes equ
       [Requerimientos computacionales],
     ),
 
-    [fast \[`fast`\]], [95.5%], [],
-    [high accuracy \[`hac`\]], [99.25%], [],
-    [super accuracy \[`sup`\]], [99.75%], [],
+    [fast (`fast`)], [95.5%], [],
+    [high accuracy (`hac`)], [99.25%], [7.5 veces lo requerido por `fast`],
+    [super accuracy (`sup`)], [99.75%], [8.5 veces lo requerido por `hac`],
   ),
 )
 
@@ -49,7 +49,7 @@ Dorado posee múltiples subcomandos con distintas funcionalidades, que incluyen 
 
 === Basecalling
 
-Para basecalling, se utiliza el subcomando `dorado basecaller`. La forma más básica de ejecutar este comando necesita el modelo a utilizar en el basecalling y el directorio con los archivos POD5. Por ejemplo, si tenemos el directorio `pod5/` y queremos utilizar el modelo `sup`, se ejecuta el siguiente comando:
+Para basecalling, se utiliza el subcomando #cmd(`dorado basecaller`). La forma más básica de ejecutar este comando necesita el modelo a utilizar en el basecalling y el directorio con los archivos POD5. Por ejemplo, si tenemos el directorio `pod5/` y queremos utilizar el modelo `sup`, se ejecuta el siguiente comando:
 ```sh
 dorado basecaller sup pod5/ > reads.ubam
 ```
@@ -57,8 +57,8 @@ Adicionalmente, existen múltiples opciones adicionales que se pueden visualizar
 
 === Demultiplexación
 
-Para demultiplexar los archivos basecalled, se utiliza el subcomando `dorado demux`. Este comando requiere el archivo UBAM con los reads generado en el basecalling y el kit de barcoding. Por ejemplo, si tenemos el archivo el `reads.ubam` y el kit SQK-NBD114-24:
+Para demultiplexar los datos, se utiliza el subcomando #cmd(`dorado demux`). Este comando requiere el archivo UBAM con los reads generado en el basecalling y el kit de barcoding. Por ejemplo, si tenemos el archivo el `reads.ubam` y el kit SQK-NBD114-24:
 ```sh
 dorado demux --output-dir basecalled_reads --kit-name SQK-NBD114-24 --emit-fastq reads.ubam
 ```
-En este ejemplo, `--output-dir` indica el directorio donde se guardarán los archivos demultiplexados, y `--emit-fastq` se utiliza para que los archivos generados estén en formato FASTQ (por defecto, se generan en BAM).
+En este ejemplo, #cmd(`--output-dir`) indica el directorio donde se guardarán los archivos demultiplexados, y #cmd(`--emit-fastq`) se utiliza para que los archivos generados estén en formato FASTQ (por defecto, se generan en BAM).

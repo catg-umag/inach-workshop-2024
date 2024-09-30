@@ -103,6 +103,16 @@
   doc
 }
 
+#let cmd(content) = {
+  show: box.with(
+    fill: rgb("f9f9f9"),
+    stroke: luma(218) + 0.3pt,
+    inset: (x: 2pt, y: 0pt),
+    outset: (x: 0pt, y: 3pt),
+    radius: 2pt,
+  )
+  content
+}
 
 #let pill(content, fill: gray) = {
   set text(weight: "regular", size: 9pt)

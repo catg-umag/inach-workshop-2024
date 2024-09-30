@@ -18,12 +18,9 @@
   number-format: none,
   zebra-fill: none,
   fill: rgb("f9f9f9"),
-  inset: 4pt,
 )
 
-#include "sections/1_basecalling.typ"
+#include "sections/1_cli_and_conda.typ"
+#include "sections/2_basecalling.typ"
 #include "sections/3_taxonomic_assign.typ"
 #include "sections/3_diversity.typ"
-
-
-
