@@ -88,10 +88,10 @@ tail -n 5 sequences.fasta               # Muestra las últimas 5 líneas
     [#cmd(`.fasta`) #cmd(`.fa`) #cmd(`.fna`) #cmd(`.fsa`) #cmd(`.faa`)],
     [Archivo de texto plano que contiene secuencias biológicas],
 
-    [FASTA], [#cmd(`.fastq`) #cmd(`.fq`)], [Archivo de texto que almacena secuencias biológicas y su calidad],
+    [FASTQ], [#cmd(`.fastq`) #cmd(`.fq`)], [Archivo de texto que almacena secuencias biológicas y su calidad],
     [SAM], [#cmd(`.sam`)], [Archivos de alineación de secuencias],
     [BAM], [#cmd(`.bam`) #cmd(`.ubam`)], [Archivos de alineación de secuencias (comprimido)],
-    [CSV/TSV], [#cmd(`.csv`) #cmd(`.tsv`)], [Archivos de alineación de secuencias],
+    [CSV/TSV], [#cmd(`.csv`) #cmd(`.tsv`)], [Archivos de texto que almacenan datos tabulares],
   ),
 )
 
@@ -106,7 +106,7 @@ tail -n 5 sequences.fasta               # Muestra las últimas 5 líneas
 == Gestión de Entorno de Trabajo con Mamba
 
 Mamba es un gestor de paquetes que facilita la instalación y gestión de paquetes de Python y R, además de posibilitar la instalación de herramientas bioinformáticas.
-Estas herramientas y paquetes se instalan en "ambientes", que permiten aislar las dependencias de proyectos específicos y obtener un entorno de trabajo reproducible. Estos entornos pueden activarse y desactivarse según sea necesario.
+Estas herramientas y paquetes se instalan en 'ambientes', que permiten aislar las dependencias de proyectos específicos y obtener un entorno de trabajo reproducible. Estos entornos pueden activarse y desactivarse según sea necesario.
 
 #heading([Crear ambientes], depth: 3, numbering: none)
 ```sh
