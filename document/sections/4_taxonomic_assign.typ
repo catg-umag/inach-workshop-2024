@@ -73,4 +73,14 @@ Este pipeline esta pensando para ser ejecutado luego de la etapa de basecalling,
 
 
 == Normalización por muestra
-https://scienceparkstudygroup.github.io/microbiome-lesson/05-data-filtering-and-normalisation/index.html
+// https://scienceparkstudygroup.github.io/microbiome-lesson/05-data-filtering-and-normalisation/index.html
+
+// https://anf-metabiodiv.github.io/course-material/courses/beta_diversity.pdf
+
+Muchas veces la cantidad de lecturas varía significativamente entre las muestras, y eso hace que los conteos obtenidos en la asignación taxonómica varien de manera notoria. Es por esto, que se hace necesario normalizar los datos para poder comparar las diferentes muestras. La normalización de los datos se realiza para corregir el sesgo en la abundancia de las especies debido a la cantidad de secuencias generadas por muestra. 
+El objetivo de la normalización es tener el mismo tamaño de librería para todas las muestras.
+
+Esto se puede hacer mediante varias metodologías: normalización por submuestreo utilizando un tamaño mínimo; escalamiento donde se divide caad abuncia por un factor para eliminar el sesgo de muestreo desigual, etc
+
+
+//https://scienceparkstudygroup.github.io/microbiome-lesson/05-data-filtering-and-normalisation/index.html
