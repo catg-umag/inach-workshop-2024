@@ -82,16 +82,16 @@ tail -n 5 sequences.fasta               # Muestra las últimas 5 líneas
   center,
   table(
     columns: 3,
-    align: (left, center, left),
+    align: (center, center, left),
     table.header([Tipo], [Extensión], [Contenido]),
     [FASTA],
     [#cmd(`.fasta`) #cmd(`.fa`) #cmd(`.fna`) #cmd(`.fsa`) #cmd(`.faa`)],
-    [Archivo de texto plano que contiene secuencias biológicas],
+    [Secuencias biológicas],
 
-    [FASTQ], [#cmd(`.fastq`) #cmd(`.fq`)], [Archivo de texto que almacena secuencias biológicas y su calidad],
-    [SAM], [#cmd(`.sam`)], [Archivos de alineación de secuencias],
-    [BAM], [#cmd(`.bam`) #cmd(`.ubam`)], [Archivos de alineación de secuencias (comprimido)],
-    [CSV/TSV], [#cmd(`.csv`) #cmd(`.tsv`)], [Archivos de texto que almacenan datos tabulares],
+    [FASTQ], [#cmd(`.fastq`) #cmd(`.fq`)], [Secuencias biológicas con calidad],
+    [SAM], [#cmd(`.sam`)], [Alineamiento de secuencias contra una referencia],
+    [BAM], [#cmd(`.bam`) #cmd(`.ubam`)], [Alineamiento de secuencias contra una referencia (comprimido)],
+    [CSV / TSV], [#cmd(`.csv`) #cmd(`.tsv`)], [Datos tabulares separados por comas (CSV) o tabulaciones (TSV)],
   ),
 )
 
