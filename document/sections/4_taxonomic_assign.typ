@@ -1,4 +1,4 @@
-#import "../catgconf.typ": github-pill
+#import "../catgconf.typ": github-pill, article-pill
 
 
 = Asignación taxonómica
@@ -6,6 +6,7 @@
 == NanoCLUST
 
 == EMU
+#article-pill("10.1038/s41592-022-01520-4")
 
 == EPI2ME wf-16S
 #github-pill("epi2me-labs/wf-16s")

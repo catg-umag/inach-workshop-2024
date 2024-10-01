@@ -118,8 +118,8 @@
 }
 
 #let pill(content, fill: gray) = {
-  set text(weight: "regular", size: 9pt)
-  show: box.with(fill: fill, inset: (x: 0.4em, y: 0.3em), radius: 3pt, clip: true)
+  set text(weight: "regular", size: 8pt)
+  show: box.with(fill: fill, inset: (x: 0.4em, y: 0.3em), outset: 1pt, radius: 3pt, clip: true)
   content
 }
 
@@ -132,9 +132,25 @@
         columns: 2,
         column-gutter: 5pt,
         align: horizon,
-        octique("mark-github", color: white, width: 0.85em), raw(repo),
+        octique("mark-github", color: white, width: 0.85em), repo,
       )
     ],
     fill: rgb("#596882"),
+  )
+}
+
+#let article-pill(doi) = {
+  set text(fill: white)
+  show link: this => text(this, fill: white)
+  pill(
+    link("https://doi.org/" + doi)[
+      #grid(
+        columns: 2,
+        column-gutter: 5pt,
+        align: horizon,
+        octique("log", color: white, width: 0.85em), doi,
+      )
+    ],
+    fill: rgb("#7f55a1"),
   )
 }
