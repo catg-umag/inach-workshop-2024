@@ -105,18 +105,15 @@ tail -n 5 sequences.fasta               # Muestra las últimas 5 líneas
 
 == Gestión de Entorno de Trabajo con Mamba
 
-Mamba es un gestor de paquetes que facilita la instalación y gestión de paquetes de Python y R, además de posibilitar la instalación de herramientas bioinformáticas.
-Estas herramientas y paquetes se instalan en 'ambientes', que permiten aislar las dependencias de proyectos específicos y obtener un entorno de trabajo reproducible. Estos entornos pueden activarse y desactivarse según sea necesario.
+Mamba es un gestor de paquetes que facilita la instalación y gestión de paquetes de Python y R, y también herramientas bioinformáticas. Estos paquetes se instalan en 'ambientes', que aíslan las dependencias de proyectos y ofrecen un entorno reproducible. Los ambientes se pueden activar y desactivar según sea necesario. Los paquetes están disponibles en 'canales', donde destacan #link("https://conda-forge.org/")[conda-forge] (paquetes de Python y R) y #link("https://bioconda.github.io/")[bioconda] (herramientas bioinformáticas).
 
-#heading([Crear ambientes], depth: 3, numbering: none)
+Algunas de las tareas más comunes que se pueden realizar con Mamba son:
+
+#heading([Listar, crear y eliminar ambientes], depth: 3, numbering: none)
 ```sh
+mamba env list                          # Lista los ambientes disponibles
 mamba create -n qc                      # Crea un ambiente llamado 'qc'
-mamba create -n analysis python=3.12    # Crea el ambiente `qc`, incluyendo Python 3.12
-```
-
-#heading([Listar ambientes], depth: 3, numbering: none)
-```sh
-mamba env list
+mamba env remove -n analysis            # Elimina el ambiente 'analysis'
 ```
 
 #heading([Activar y desactivar ambientes], depth: 3, numbering: none)
@@ -125,13 +122,14 @@ mamba activate qc                       # Activa el ambiente 'qc'
 mamba deactivate                        # Desactiva el ambiente activo
 ```
 
-#heading([Gestión de paquetes], depth: 3, numbering: none)
+#heading([Gestionar paquetes], depth: 3, numbering: none)
 ```sh
-mamba install bioconda::samtools        # Instala el paquete 'samtools' en el ambiente activo
+mamba list                              # Lista los paquetes instalados en el ambiente activo
+mamba install python                    # Instala Python en el ambiente activo si no está presente
+mamba install bioconda::samtools        # Instala el paquete 'samtools' desde el canal 'bioconda'
 mamba install bioconda::nanoq=0.9.0     # Instala una versión específica del paquete 'nanoq'
 mamba update nanoq                      # Actualiza el paquete 'nanoq'
 mamba remove samtools                   # Desinstala el paquete 'samtools'
-mamba list                              # Lista los paquetes instalados en el ambiente activo
 ```
 
 #heading([Exportar e importar ambientes], depth: 3, numbering: none)
