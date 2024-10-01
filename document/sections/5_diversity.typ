@@ -48,10 +48,11 @@ La diversidad beta nos permite representar las diferencias  de diversidad entre 
 // se uiliza para medir la diversidad entre muestras o ecosistemas.
 
  Estas métricas de distancia varían entre cero y uno. Las más usadas son las siguientes:// Bray-Curtis, Jaccard, Unifrac, entre otros.
-- Bray-Curtis: Mide la disimilitud entre muestras. Se basa en la abundancia de los taxones en las muestras.
+- Bray-Curtis: Mide la disimilitud entre muestras. Se basa en la abundancia de los taxones en las muestra. 
 - Jaccard: Mide disimilitud. Se basa en la presencia/ausencia de los taxones en las muestras, sin incluir información de la abundancia.
 - Unifrac: Mide la distancia filogenética entre comunidades, considerando la presencia/ausencia, abundancias y evolución filogenética.  Unweighted UniFrac considera solo la presencia o ausencia de otus (sin considerar abundancia), Weighted UniFrac considera las abundancias  //Se basa en la presencia/ausencia de las especies en las muestras, incluyendo información de la abundancia.
 
+// BRAY CURTIS EXAMINA LA ABUNDANCIA COMPARTIDA ENTRE GROUPIOS
 
 // https://scienceparkstudygroup.github.io/microbiome-lesson/06-beta-diversity/index.html
 
@@ -71,7 +72,7 @@ sample	sex	    Area	latitude	long	    deep
 Para calcular la diversidad beta utilizaremos las matrices de disimilitud de Bray-curtis y Jaccard y las proyectaremos en un espacio bidimensional mediante una PCoA.
 
 Una PCoA ((Principal Coordinate Analysis) es una técnica de ordenación que permite reducir la dimensionalidad de los datos y visualizar la diversidad beta en un espacio de menor dimensión.
-
+//Another commonly-used MDS approach is Principal Coordinates Analysis (PCoA), also known as classical multidimensional scaling. It relies on eigenvalue decomposition in its calculations.
 Algunas funciones utiles a utilizar son:
 - vegdist:  Permite calcular la matri una matriz de disimilitud entre muestras. Se pueden utilizar diferentes métricas de distancia, como  `Bray-curtis`, `Jacard`, `Euclideana`, entre otras. 
 - cmdscale: Realiza un análisis de coordenadas principales (PCoA) a partir de una matriz de disimilitud. 
@@ -81,7 +82,8 @@ pcoa_res <- cmdscale(bray_dist, eig = TRUE)
 ```
 HACER ANALISIS ESTADISTICOS
 
-
+//The eigenvalue represents the variance displayed (“explained” or “extracted”) by the kth axis
+//Each eigenvector consists of p values which represent the “contribution” of each variable to the principal component axis
 
 // hacer una lista 
 // distancia euclideana vs otras distiancias por que las otras son mejores
