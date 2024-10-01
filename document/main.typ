@@ -2,6 +2,7 @@
 #import "@preview/gentle-clues:0.9.0": *
 #import "catgconf.typ": conf, catg-colors
 
+
 #show: doc => conf(
   title: "Oxford Nanopore Data Analysis",
   authors: ("Diego Alvarez S.", "Jacqueline Aldridge A."),
@@ -10,17 +11,20 @@
 
 #show: codly-init.with()
 #show: gentle-clues.with(
-  header-inset: 5pt,
+  header-inset: 4pt,
+  content-inset: 6pt,
   border-radius: 3pt,
 )
 
 #codly(
   number-format: none,
   zebra-fill: none,
-  fill: rgb("f9f9f9"),
+  fill: rgb("#f1f5f6"),
+  stroke: rgb("#f1f5f6") + 2pt
 )
 
-#include "sections/1_cli_and_conda.typ"
+#include "sections/1_working_env.typ"
 #include "sections/2_basecalling.typ"
-#include "sections/3_taxonomic_assign.typ"
-#include "sections/3_diversity.typ"
+#include "sections/3_quality.typ"
+#include "sections/4_taxonomic_assign.typ"
+#include "sections/5_diversity.typ"

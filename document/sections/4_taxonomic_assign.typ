@@ -1,13 +1,15 @@
-#import "@preview/gentle-clues:0.9.0": *
-
 #import "../catgconf.typ": github-pill
+
 
 = Asignación taxonómica
 
 == NanoCLUST
+
 == EMU
-== wf-16S
+
+== EPI2ME wf-16S
 #github-pill("epi2me-labs/wf-16s")
+
 === Mediante aplicación de escritorio
 
 === Mediante línea de comando
@@ -36,7 +38,7 @@ Por defecto el pipeline realiza la asignación taxonómica con la herramienta Mi
      --sample_sheet samples.csv \
      --taxonomic_rank G --fastq data  \
      --out_dir wf-16s_minimap_ncbi \
-     -profile singularity, slurm -resume
+     -profile singularity -resume
 ```
 El pipeline requiere un archivo de muestras en formato CSV que contenga la información de las muestras y los barcodes asociados.
 

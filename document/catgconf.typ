@@ -1,5 +1,6 @@
 #import "@preview/octique:0.1.0": *
 
+
 #let catg-colors = (
   red: rgb("ee273f"),
   blue: rgb("1889c6"),
@@ -17,13 +18,13 @@
     author: authors,
   )
 
-  set text(font: "Lato", lang: "es", size: 10pt)
+  set text(font: "Lato", lang: "es", size: 9.5pt)
   set par(justify: true)
   show raw: set text(font: ("Hack", "mono"))
 
   set page(
     paper: "us-letter",
-    margin: (top: 2.5cm, right: 2cm, bottom: 2.5cm, left: 2cm),
+    margin: (top: 2.3cm, right: 2cm, bottom: 2.3cm, left: 2cm),
     numbering: "1 of 1",
     header: context [
       #set text(fill: gray, size: 0.9em)
@@ -34,7 +35,7 @@
       )
     ],
     footer: context [
-      #set text(fill: gray, size: 0.8em)
+      #set text(fill: gray, size: 0.9em)
 
       #align(
         right,
@@ -67,7 +68,10 @@
       above: 1.5em,
       inset: (bottom: 0.3em),
       [
-        #counter(heading).display(it.numbering) #h(4pt) | #h(4pt) #it.body
+        #if (it.numbering != none) [
+          #counter(heading).display(it.numbering) #h(4pt) | #h(4pt) 
+        ]
+        #it.body
       ],
     )
   }
@@ -105,8 +109,7 @@
 
 #let cmd(content) = {
   show: box.with(
-    fill: rgb("f9f9f9"),
-    stroke: luma(218) + 0.3pt,
+    fill: rgb("#ebf3f4"),
     inset: (x: 2pt, y: 0pt),
     outset: (x: 0pt, y: 3pt),
     radius: 2pt,

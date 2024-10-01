@@ -1,5 +1,3 @@
-#import "@preview/gentle-clues:0.9.0": *
-
 #import "../catgconf.typ": github-pill, cmd
 
 
@@ -7,7 +5,7 @@
 
 Basecalling es el proceso por el cual se convierte la señal eléctrica captada por los dipositivos de Oxford Nanopore en secuencias de nucleótidos. Esta conversión requiere de algoritmos computacionales avanzados, como las redes neuronales LSTM y los transformers utilizados por las opciones de basecalling actuales. Este proceso es crucial porque define la calidad de los datos, lo que afectará directamente los análisis posteriores.
 
-Oxford Nanopore ha desarrollado múltiples basecallers a medida que ha habido avances tecnológicos. El basecaller actual es #link("https://github.com/nanoporetech/dorado")[Dorado], el cual se puede utilizar mediante línea de comandos. Adicionalmente, está integrado en MinKNOW.
+Oxford Nanopore ha desarrollado múltiples basecallers haciendo uso de diversos avances tecnológicos. El basecaller actual es #link("https://github.com/nanoporetech/dorado")[Dorado], el cual se puede utilizar mediante línea de comandos, o a través de MinKNOW.
 
 
 == Precisión del basecalling
@@ -20,15 +18,10 @@ Dorado cuenta con múltiples modelos de basecalling, cada uno con diferentes equ
   table(
     columns: 3,
     align: (left, center, left),
-    table.header(
-      [Modelo],
-      [Precisión Simplex],
-      [Requerimientos computacionales],
-    ),
-
+    table.header([Modelo], [Precisión Simplex], [Requerimientos computacionales]),
     [fast (`fast`)], [95.5%], [],
-    [high accuracy (`hac`)], [99.25%], [7.5 veces lo requerido por `fast`],
-    [super accuracy (`sup`)], [99.75%], [8.5 veces lo requerido por `hac`],
+    [high accuracy (`hac`)], [99.25%], [7.5 veces lo requerido por #cmd(`fast`)],
+    [super accuracy (`sup`)], [99.75%], [8.5 veces lo requerido por #cmd(`hac`)],
   ),
 )
 
@@ -39,7 +32,7 @@ Dorado cuenta con múltiples modelos de basecalling, cada uno con diferentes equ
   ],
 )
 
-Usar el modelo `sup` es la opción recomendada si se busca obtener la máxima precisión posible. Sin embargo, este modelo tiene un costo computacional tan elevado que se vuelve impráctico de usar sin hardware dedicado (GPU).
+Usar el modelo #cmd(`sup`) es la opción recomendada si se busca obtener la máxima precisión posible. Sin embargo, este modelo tiene un costo computacional tan elevado que se vuelve impráctico de usar sin hardware dedicado (GPU).
 
 
 == Uso básico de Dorado
