@@ -42,11 +42,11 @@ Dorado posee múltiples subcomandos con distintas funcionalidades, que incluyen 
 
 === Basecalling
 
-Para basecalling, se utiliza el subcomando #cmd(`dorado basecaller`). La forma más básica de ejecutar este comando necesita el modelo a utilizar en el basecalling y el directorio con los archivos POD5. Por ejemplo, si tenemos el directorio `pod5/` y queremos utilizar el modelo `sup`, se ejecuta el siguiente comando:
+Para basecalling, se utiliza el subcomando #cmd(`dorado basecaller`). La forma más básica de ejecutar este comando necesita el modelo a utilizar en el basecalling y el directorio con los archivos POD5. Por ejemplo, si tenemos el directorio `pod5/` y queremos utilizar el modelo `sup`, debemos utilizar el siguiente comando:
 ```sh
 dorado basecaller sup pod5/ > reads.ubam
 ```
-Adicionalmente, existen múltiples opciones adicionales que se pueden visualizar en la ayuda del comando.
+Existen múltiples opciones adicionales que se pueden visualizar en la ayuda del comando.
 
 === Demultiplexación
 
