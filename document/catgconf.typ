@@ -104,6 +104,8 @@
 
   show link: set text(fill: rgb("#144e6e"))
 
+  show figure: set block(spacing: 1.5em)
+
   doc
 }
 
@@ -119,7 +121,7 @@
 
 #let pill(content, fill: gray) = {
   set text(weight: "regular", size: 8pt)
-  show: box.with(fill: fill, inset: (x: 0.4em, y: 0.3em), outset: 1pt, radius: 3pt, clip: true)
+  show: box.with(fill: fill, inset: (x: 0.4em, y: 0.3em), outset: 1pt, radius: 4pt)
   content
 }
 
@@ -135,11 +137,11 @@
         octique("mark-github", color: white, width: 0.85em), repo,
       )
     ],
-    fill: rgb("#596882"),
+    fill: rgb("#687fa8"),
   )
 }
 
-#let article-pill(doi) = {
+#let doi-pill(doi) = {
   set text(fill: white)
   show link: this => text(this, fill: white)
   pill(
@@ -151,6 +153,6 @@
         octique("log", color: white, width: 0.85em), doi,
       )
     ],
-    fill: rgb("#7f55a1"),
+    fill: rgb("#9d6dc5"),
   )
 }

@@ -20,7 +20,7 @@ Los #cmd(`<argumentos>`) suelen ser archivos de entrada y salida, mientras que l
   Los corchetes (#cmd(`[ ]`)) indican argumentos opcionales, mientras que los obligatorios se escriben con corchetes angulares (#cmd(`< >`)) o sin ellos.
 ]
 
-== Interacción con Archivos en Linux
+== Interacción con archivos en Linux
 
 Para ejecutar herramientas desde la terminal, es necesario saber cómo encontrar y manipular archivos. A continuación, se presentan algunos de los comandos más básicos para interactuar con archivos en Linux.
 
@@ -76,7 +76,7 @@ head -n 10 sequences.fasta              # Muestra las primeras 10 líneas
 tail -n 5 sequences.fasta               # Muestra las últimas 5 líneas
 ```
 
-== Tipos de Archivos Comunes al Procesar Datos Bioinformáticos
+== Tipos de archivos relevantes al procesar datos bioinformáticos
 
 #align(
   center,
@@ -84,13 +84,11 @@ tail -n 5 sequences.fasta               # Muestra las últimas 5 líneas
     columns: 3,
     align: (center, center, left),
     table.header([Tipo], [Extensión], [Contenido]),
-    [FASTA],
-    [#cmd(`.fasta`) #cmd(`.fa`) #cmd(`.fna`) #cmd(`.fsa`) #cmd(`.faa`)],
-    [Secuencias biológicas],
-
+    [FASTA], [#cmd(`.fasta`) #cmd(`.fa`) #cmd(`.fna`) #cmd(`.fsa`) #cmd(`.faa`)], [Secuencias biológicas],
     [FASTQ], [#cmd(`.fastq`) #cmd(`.fq`)], [Secuencias biológicas con calidad],
     [SAM], [#cmd(`.sam`)], [Alineamiento de secuencias contra una referencia],
     [BAM], [#cmd(`.bam`) #cmd(`.ubam`)], [Alineamiento de secuencias contra una referencia (comprimido)],
+    [POD5], [#cmd(`.pod5`)], [Datos crudos de Oxford Nanopore],
     [CSV / TSV], [#cmd(`.csv`) #cmd(`.tsv`)], [Datos tabulares separados por comas (CSV) o tabulaciones (TSV)],
   ),
 )
@@ -103,7 +101,7 @@ tail -n 5 sequences.fasta               # Muestra las últimas 5 líneas
   ```
 ]
 
-== Gestión de Entorno de Trabajo con Mamba
+== Gestión de entorno de trabajo con mamba
 
 Mamba es un gestor de paquetes que facilita la instalación y gestión de paquetes de Python y R, y también herramientas bioinformáticas. Estos paquetes se instalan en 'ambientes', que aíslan las dependencias de proyectos y ofrecen un entorno reproducible. Los ambientes se pueden activar y desactivar según sea necesario. Los paquetes están disponibles en 'canales', donde destacan #link("https://conda-forge.org/")[conda-forge] (paquetes de Python y R) y #link("https://bioconda.github.io/")[bioconda] (herramientas bioinformáticas).
 
