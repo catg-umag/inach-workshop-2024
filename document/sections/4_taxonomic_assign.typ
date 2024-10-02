@@ -1,12 +1,12 @@
-#import "../catgconf.typ": github-pill, article-pill
-
+#import "../catgconf.typ": github-pill
+#import "@preview/gentle-clues:0.9.0": *
+#import "../catgconf.typ": cmd
 
 = Asignación taxonómica
 
 == NanoCLUST
 
 == EMU
-#article-pill("10.1038/s41592-022-01520-4")
 
 == EPI2ME wf-16S
 #github-pill("epi2me-labs/wf-16s")
@@ -69,11 +69,21 @@ Este pipeline esta pensando para ser ejecutado luego de la etapa de basecalling,
 
 
 
+==  Eliminación de especies poco abundantes y normalización por muestra
 
-== Eliminación de especies poco abundantes
+Una práctica común en el análisis de datos de microbioma es la eliminación de especies poco abundantes, ya que estas pueden representar ruido en los análisis afectando la interpretación de los resultados.
 
+Para esto, se puede establecer un umbral de abundancia mínima, eliminando las especies que no cumplen con este criterio. En este caso, eliminaremos todos los taxones que no cumplan con un umbral de abundancia del 0.1% en alguna muestra. También eliminaremos las lecturas que no lograron clasificarse, esto lo haremos mediante R:
 
-== Normalización por muestra
+```R
+count_data_filtered <- count_data %>%
+    column_to_rownames("tax") %>%
+    filter_all(any_vars(. / sum(.) > 0.0001))  %>%
+    select(-total,-starts_with("Unclassified")) %>%
+```
+
+==  Normalización por muestra
+
 // https://scienceparkstudygroup.github.io/microbiome-lesson/05-data-filtering-and-normalisation/index.html
 
 // https://anf-metabiodiv.github.io/course-material/courses/beta_diversity.pdf
@@ -81,7 +91,13 @@ Este pipeline esta pensando para ser ejecutado luego de la etapa de basecalling,
 Muchas veces la cantidad de lecturas varía significativamente entre las muestras, y eso hace que los conteos obtenidos en la asignación taxonómica varien de manera notoria. Es por esto, que se hace necesario normalizar los datos para poder comparar las diferentes muestras. La normalización de los datos se realiza para corregir el sesgo en la abundancia de las especies debido a la cantidad de secuencias generadas por muestra. 
 El objetivo de la normalización es tener el mismo tamaño de librería para todas las muestras.
 
-Esto se puede hacer mediante varias metodologías: normalización por submuestreo utilizando un tamaño mínimo; escalamiento donde se divide caad abuncia por un factor para eliminar el sesgo de muestreo desigual, etc
+Esto se puede hacer mediante varias metodologías: normalización por submuestreo utilizando un tamaño mínimo; escalamiento donde se divide cada abundancia por un factor para eliminar el sesgo de muestreo desigual, etc
+
+Utilizaremos una normalización por XXX mediante la función #cmd(`decostat`) de la librería vegan en R.
+
+```R
+data_normalized <- decostand(count_data_filtered, method = "total")
+```
 
 
 //https://scienceparkstudygroup.github.io/microbiome-lesson/05-data-filtering-and-normalisation/index.html
