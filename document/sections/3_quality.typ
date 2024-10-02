@@ -109,10 +109,9 @@ A continuación se presentan algunos ejemplos de ejecución:
 ```sh
 # Ejecuta FastQC en el archivo 'sample1.fastq.gz'
 fastqc sample1.fastq.gz
-# FastQC en los archivos 'sample1.fastq.gz' y 'sample2.fastq.gz', almacenando los reportes en el directorio 'reports'
-fastqc -o reports/ sample1.fastq.gz sample2.fastq.gz
+# Ejecuta FastQC en múltiples archivos, con 4 hilos, almacenando los reportes en 'reports'
+fastqc -t 4 -o reports/ sample1.fastq.gz sample2.fastq.gz
 ```
-
 
 == nanoq
 #github-pill("esteinig/nanoq") #h(3pt) #doi-pill("10.21105/joss.02991") \
