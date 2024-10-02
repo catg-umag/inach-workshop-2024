@@ -7,14 +7,16 @@ https://carpentries-lab.github.io/metagenomics-analysis/08-Diversity-tackled-wit
  
 avgdist --> no todas las muestras tienen la misma cantidad de seqs --> sampling
 = Curvas de rarefacción 
-Las curvas de rarefacción permiten evaluar la riqueza de especies dentro de una comunidad en función del número de secuencias obtenidas. Nos permiten determinar si el número de secuencias obtenidas es suficiente para capturar la diversidad de la comunidad.
+Las curvas de rarefacción permiten evaluar la riqueza de especies dentro de una comunidad en función del número de secuencias obtenidas. Nos permiten determinar si el número de secuencias obtenidas fué suficiente para capturar la diversidad de la comunidad.
 
 Para ello, se realizan muestreos aleatorios y se visualiza el número de especies observadas a medida que aumenta el número de secuencias.
 
-Utilizaremos el paquete `iNEXT` en R para realizar las curvas de rarefacción.
+Utilizaremos la función `rarecurve` del paquete Vegan para realizar las curvas de rarefacción.
+Podemos indicarle a la función que genere una línea vertical en el punto donde se alcanza el mínimo número de secuencias en una muestra. (No se si se entiende)
 ```R
-D_abund <- iNEXT (df, datatype = 'incidence_filtered')
-plot (D_abund)
+minReads <- min(rowSums(count_data_t))
+
+rarecurve(count_data_t, step = 20, sample = minReads, col = "#87a3c9", cex = 0.6)
 ```
 
 = Índices de diversidad alfa
@@ -23,8 +25,12 @@ Las métricas de diversidad alfa se utilizan para medir la diversidad dentro de 
 
 Las métricas mas comunes de diversidad alfa son:
 - Riqueza: Número de especies observadas en una muestra.
-- Chao1: Estima la riqueza total (número de especies no observadas en una muestra).
+- Equidad: Que tan equitativo se distribuyen las abundancias de las especies en una muestra.
+  - Valores cercanos a uno indican comunidades donde todas las especies tienen abundancias similares, mientras valores cercanos a cero indican comunidades donde una o pocas especies son dominantes.
 - Shannon: Mide la diversidad de especies en una muestra, considerando la abundancia de las especies.
+  - Valores más altos indican mayor diversidad y equidad en la comunidad, mientras que valores bajos pueden llegar a indicar baja equitatividad o baja riqueza.
+- Chao1: Estima la riqueza total (número de especies no observadas en una muestra).
+  - Valores significativamente mayores que la riqueza observada sugieren que el muestreo fue insuficiente para detectar todas las especies presentes en la comunidad.
 // - Simpson: Mide la probabilidad de que dos individuos seleccionados al azar pertenezcan a la misma especie.
 
 Para esto, utilizaremos el paquete vegan en R. 
@@ -33,13 +39,20 @@ Calcularemos la ríqueza, equidad, índice de Shannon y Chao1.
 data_richness <- estimateR(data_otu)
 data_evenness <- diversity(data_otu) / log(specnumber(data_otu))                
 data_shannon <- diversity(data_otu, index = "shannon")                
-
-
 ```
-// Alpha-diversity is calculated on the raw data, here data_otu or data_phylo if you are using phyloseq.
-// It is important to not use filtered data because many richness estimates are modeled on singletons and doubletons in the occurrence table. So, you need to leave them in the dataset if you want a meaningful estimate.
+#tip[
+  La diversidad alfa habitualmente se calcula sobre los datos sin procesar y sin normalizar. Esto último ya que se busca evaluar la diversidad por muestra y no comparar muestras entre sí.
+  // It is important to not use filtered data because many richness estimates are modeled on singletons and doubletons in the occurrence table. So, you need to leave them in the dataset if you want a meaningful estimate.
 // Moreover, we usually not using normalized data because we want to assess the diversity on the raw data and we are not comparing samples to each other but only assessing diversity within each sample.
-// 
+//
+]
+
+
+
+ 
+
+== Test estadisticos
+
 Podemos utilizar diferentes test estádisticos para comprobar si existen diferencias significativas entre los grupos: pruebas no paramétricas como el test de Kruskal-Wallis o el test de Mann-Whitney o pruebas parámetricas como t-test y ANOVA. Antes de utilizar pruebas parámetricas se debe comprobar la normalidad y hococedasticidad de los datos.
 
 = Índices de diversidad beta
@@ -78,8 +91,15 @@ Algunas funciones utiles a utilizar son:
 - cmdscale: Realiza un análisis de coordenadas principales (PCoA) a partir de una matriz de disimilitud. 
 ```R
 bray_dist <- vegdist(data_otu, method = "bray")
-pcoa_res <- cmdscale(bray_dist, eig = TRUE)
+// pcoa_res <- cmdscale(bray_dist, eig = TRUE)
 ```
+
+#tip[
+Cuando realizamos una analisis de coordenadas principales (PCoA) es importante tener en cuenta que los valores propios (eigenvalues) representan la varianza de cada uno de los componentes. Cada eigenvector consiste en p valores que representan la "contribución" de cada variable al eje de componente principal.
+Valores altos indican que el eje captura una mayor cantidad de la varianza total de los datos.
+]
+
+
 HACER ANALISIS ESTADISTICOS
 
 //The eigenvalue represents the variance displayed (“explained” or “extracted”) by the kth axis
