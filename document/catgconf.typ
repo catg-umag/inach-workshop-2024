@@ -19,7 +19,7 @@
     author: authors,
   )
 
-  set text(font: "Lato", lang: "es", size: 9.5pt)
+  set text(font: "Lato", lang: "es", size: 10pt)
   set par(justify: true)
   show raw: set text(font: ("Hack", "mono"))
 
