@@ -11,6 +11,7 @@
 #let conf(
   title: none,
   authors: (),
+  date: "",
   doc,
 ) = {
   set document(
@@ -31,7 +32,10 @@
       #grid(
         columns: (1fr, 1fr),
         align: (left, right),
-        [Oxford Nanopore Data Analysis], emph(authors.join(" & ")),
+        [Oxford Nanopore Data Analysis], [
+          #emph(authors.join(" & "))
+          #if (date != "") { [| #emph(date)] }
+        ],
       )
     ],
     footer: context [

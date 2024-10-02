@@ -6,6 +6,7 @@
 #show: doc => conf(
   title: "Oxford Nanopore Data Analysis",
   authors: ("Diego Alvarez S.", "Jacqueline Aldridge A."),
+  date: "Octubre 2024",
   doc,
 )
 
