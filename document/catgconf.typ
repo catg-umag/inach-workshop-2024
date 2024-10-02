@@ -112,8 +112,8 @@
 #let cmd(content) = {
   show: box.with(
     fill: rgb("#ebf3f4"),
-    inset: (x: 2pt, y: 0pt),
-    outset: (x: 0pt, y: 3pt),
+    inset: (x: 3pt),
+    outset: (y: 3pt),
     radius: 2pt,
   )
   content

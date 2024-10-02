@@ -4,9 +4,9 @@
 
 = Control y Filtros de Calidad
 
-El control de calidad es una fase fundamental en el análisis de datos de secuenciación, especialmente en tecnologías de tercera generación debido a su mayor tasa de error. Entre las tareas más comunes de esta etapa se incluyen la eliminación de secuencias de baja calidad, la remoción de adaptadores, la filtración de secuencias cortas y la descontaminación.
+El control de calidad es una fase fundamental en el análisis de datos de secuenciación, especialmente en tecnologías de tercera generación debido a su mayor tasa de error. Entre las tareas más comunes de esta etapa se incluyen la eliminación de secuencias de baja calidad, eliminación de adaptadores, filtro de secuencias cortas y descontaminación.
 
-La calidad de las lecturas se codifica en los archivos FASTQ generados por los dispositivos de secuenciación. En el caso de Oxford Nanopore, estos archivos, resultado del proceso de basecalling, contienen tanto la información de la secuencia como la calidad asociada a cada base. Un ejemplo de lectura en formato FASTQ se presenta a continuación:
+La calidad de las lecturas se codifica en los archivos FASTQ generados por los dispositivos de secuenciación, y en el caso de Oxford Nanopore son resultado del proceso de basecalling. Contienen tanto la información de la secuencia como la calidad asociada a cada base. Un ejemplo de lectura en formato FASTQ se presenta a continuación:
 
 #figure(
   ```
@@ -98,7 +98,7 @@ Los valores de calidad Q-Score están codificados en formato ASCII, donde cada c
 
 == FastQC
 #github-pill("s-andrews/FastQC") \
-FastQC es una herramienta ampliamente utilizada para realizar el control de calidad de datos de secuenciación. Permite evaluar la calidad de las secuencias, identificar adaptadores, secuencias repetitivas y otros problemas comunes en los datos de secuenciación. Los resultados de las métricas evaluadas son presentadas en un reporte en formato HTML.
+FastQC es una herramienta ampliamente utilizada para realizar el control de calidad de datos de secuenciación. Permite evaluar la calidad de las secuencias, identificar adaptadores, secuencias repetitivas y otros problemas comunes. Los resultados de las métricas evaluadas son presentadas en un reporte en formato HTML.
 
 Para ejecutar FastQC se debe indicar el o los archivos de entrada como argumentos al comandos. Otros parámetros relevantes son:
 - #cmd(`--outdir / -o`): Almacena los reportes generados en un directorio específico (debe estar creado).
@@ -115,49 +115,48 @@ fastqc -t 4 -o reports/ sample1.fastq.gz sample2.fastq.gz
 
 == nanoq
 #github-pill("esteinig/nanoq") #h(3pt) #doi-pill("10.21105/joss.02991") \
-Nanoq es una herramienta para realizar control y filtros de calidad específicamente desarrollada para trabajar con datos de Oxford Nanopore. Permite realizar tanto control de calidad como filtros de calidad en sí.
+Nanoq es una herramienta para realizar control y filtros de calidad diseñada para trabajar con datos de Oxford Nanopore.
 
-Para realizar control de calidad se debe indicar mediante el parámetro #cmd(`-v`) / #cmd(`--verbose`). Existen tres niveles de salida:
-- #cmd(`-v`): Información básica (cantidad de secuencias, número total de bases, tamaño y calidad promedio).
-- #cmd(`-vv`): Similar a #cmd(`-v`), pero incluye thresholds para la calidad y tamaño de las secuencias.
-- #cmd(`-vvv`): Similar a #cmd(`-vv`) pero incluye un ranking de las cinco secuencias con mejor calidad y mayor largo.
-Al utilizar la opción de salida -v se debe indicar donde se va a imprimir la información, si en la salida estándar #cmd(`-s`) o en nuevo archivo #cmd(`--report`).
+#heading([Control de calidad], level: 3, numbering: none)
 
-El archivo de entrada debe indicarse mediante el parámtero #cmd(`-i / --input`). A continuación se presenta un ejemplo de control de calidad, donde la información se almacena en el archivo `bacorde01_stats.txt`:
+Para obtener métricas de calidad se utiliza el parámetro #cmd(`-s / --stats`). Esto genera una tabla con cantidad de secuencias, número total de bases, tamaño y calidad promedio. Se puede usar #cmd(`--report`) para guardar la información generada en un archivo. Existen opciones que permiten obtener información adicional, las cuales son:
+- #cmd(`-v`) : Información básica en formato extendido.
+- #cmd(`-vv`): Similar a #cmd(`-v`), pero incluye una compartimentación de la calidad y tamaño de las secuencias.
+- #cmd(`-vvv`): Similar a #cmd(`-vv`), pero incluye un ranking de las cinco secuencias con mejor calidad y mayor largo.
+
+El archivo de entrada debe indicarse mediante el parámtero #cmd(`-i / --input`).
+
+Ejemplo de uso para control de calidad:
 ```sh
-nanoq -i barcode01.fastq.gz -vvs -r bacorde01_stats.txt
+nanoq -i barcode01.fastq.gz -svv -r bacorde01_stats.txt
 ```
 
-Nanoq ofrece diferentes parámetros que permiten realizar filtros de calidad, los más relevantes se presentan a continuación:
-- #cmd(`--max-len / -m`): Tamaño máximo de las lecturas.
-- #cmd(`--min-len / -l`): Tamaño mínimo de las lecturas.
-- #cmd(`--max-qual / -w`): Calidad máxima para filtrar
-- #cmd(`--min-qual / -q`): Calidad mínima para filtrar.
+#heading([Filtros de calidad], level: 3, numbering: none)
 
-Mediante el parámetro `-o --output` se indica el archivo que va a almacenar los datos filtrados. A continuación se presenta un ejemplo de filtros de calidad utilizando como calidad mínima 15 y tamaño entre 1.000 y 2.000 pares de bases:
+Al usar nanoq para realizar filtros de calidad, los parámetros más relevantes son #cmd(`--min-len / -l`), #cmd(`--max-len / -m`), #cmd(`--min-qual / -q`) y #cmd(`--max-qual / -w`). Mediante el parámetro #cmd(`--output / -o`) se indica el archivo que va a almacenar los datos filtrados.
+
+En el siguiente ejemplo se filtra con calidad mínima 15 y tamaño entre 1.000 y 2.000 pares de bases:
 ```sh
-nanoq --input barcode01.fastq.gz --min-qual 15 --min-len 1000 --max-len 2000 --output barcode01_filtered.fastq.gz
+nanoq -i barcode01.fastq.gz -q 15 -l 1000 -m 2000 -o barcode01_filtered.fastq.gz
 ```
 
-En caso de querer obtener las estádisticas del archivo filtrado se puede indicar que se almacene el resultado en un archivo de salida mediante el parámetro `-r o --report`.
+Al usar filtros de calidad, se puede utilizar la opción `--report` para generar el reporte de estadísticas del archivo filtrado:
 ```sh
-nanoq --input barcode01.fastq.gz --min-qual 15 --min-len 1000 --max-len 2000  --output barcode01_filtered.fastq.gz -vv --report barcode01_filtered_stats.txt -H
+nanoq --input barcode01.fastq.gz --output barcode01_filtered.fastq.gz \
+      --min-qual 15 --min-len 1000 --max-len 2000 \
+      -vv --report barcode01_filtered_stats.txt
 ```
 
 == MultiQC
-MultiQC es una herramienta que permite generar un único reporte de calidad a partir de reportes de múltiples herramientas y múltiples muestras. Soporta reportes de herramientas como FastQC, Nanoq, Fastp, cutadapt, NanoPlot entre otras. Una lista completa de las herramientas soportadas por MultiQC se pueden encontrar en al documentación oficial #link("https://multiqc.info/docs/#multiqc-modules")[MultiQC modules].
+#github-pill("MultiQC/MultiQC") \
+MultiQC permite presentar resultados de reportes de múltiples herramientas y múltiples muestras en un único reporte HTML. Soporta un gran cantidad herramientas bioinformáticas como FastQC, nanoq, fastp, cutadapt y NanoPlot. La lista de herramientas soportadas se puede encontrar en la sección #link("https://multiqc.info/docs/#multiqc-modules")[MultiQC modules] de la documentación.
 
-MultiQC necesita el directorio donde se encuentren los reportes generados por las herramientas, el cual puede indicarse inmediatamente luego del comando.
+MultiQC requiere como argumento el directorio donde se encuentren los reportes generados por las herramientas. Si se indica #cmd(`.`), MultiQC buscará los reportes en el directorio actual. Ejemplo:
 ```sh
-multiqc reports_directory
+multiqc reports/
 ```
-Se puede indicar el nombre del archivo mediante el parámetro #cmd(`--filename`), en caso de no indicarlo por defecto será `multiqc_report.html`.
 
+Por defecto el nombre del reporte será `multiqc_report.html`, pero se puede indicar con #cmd(`--filename`):
 ```sh
 multiqc --filename multiqc_raw.html reports/
-```
-
-Se puede utilizar como shortcut el simbolo #cmd(`.`) para indicarle a multiqc que escanee el directorio actual y busque todos los reportes.
-```sh
-multiqc --filename multiqc_raw.html .
 ```
