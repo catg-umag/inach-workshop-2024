@@ -28,35 +28,45 @@
     margin: (top: 2cm, right: 2cm, bottom: 2cm, left: 2cm),
     numbering: "1 of 1",
     footer-descent: 20%,
-    header: context [
-      #set text(fill: gray, size: 0.9em)
-      #grid(
-        columns: (1fr, 1fr),
-        align: (left, right),
-        title,
-        [
-          #emph(authors.join(" & "))
-          #if (date != "") {
-            [| #emph(date)]
-          }
-        ],
-      )
-    ],
-    footer: context [
-      #set text(fill: gray, size: 0.9em)
+    header: {
+      context {
+        if (counter(page).get().first() <= 2) {
+          []
+        } else {
+          set text(fill: gray, size: 0.9em)
+          grid(
+            columns: (1fr, 1fr),
+            align: (left, right),
+            title,
+            [
+              #emph(authors.join(" & "))
+              #if (date != "") {
+                [| #emph(date)]
+              }
+            ],
+          )
+        }
+      }
+    },
+    footer: context {
+      if (counter(page).get().first() <= 2) {
+        []
+      } else {
+        set text(fill: gray, size: 0.9em)
 
-      #align(
-        right,
-        stack(
-          dir: ltr,
-          rect(fill: catg-colors.red, width: 2.5cm, height: 0.15cm),
-          rect(fill: catg-colors.blue, width: 2.5cm, height: 0.15cm),
-          rect(fill: catg-colors.green, width: 2.5cm, height: 0.15cm),
-          rect(fill: catg-colors.yellow, width: 2.5cm, height: 0.15cm),
-        ),
-      )
-      #align(center, counter(page).display("1 / 1", both: true))
-    ],
+        align(
+          right,
+          stack(
+            dir: ltr,
+            rect(fill: catg-colors.red, width: 2.5cm, height: 0.15cm),
+            rect(fill: catg-colors.blue, width: 2.5cm, height: 0.15cm),
+            rect(fill: catg-colors.green, width: 2.5cm, height: 0.15cm),
+            rect(fill: catg-colors.yellow, width: 2.5cm, height: 0.15cm),
+          ),
+        )
+        align(center, counter(page).display("1 / 1", both: true))
+      }
+    },
   )
 
   // Heading

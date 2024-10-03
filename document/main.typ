@@ -4,7 +4,7 @@
 
 
 #show: doc => conf(
-  title: "Análisis de datos de Oxford Nanopore",
+  title: "Análisis de Datos de Oxford Nanopore",
   authors: ("Diego Alvarez S.", "Jacqueline Aldridge A."),
   date: "Octubre 2024",
   doc,
@@ -23,6 +23,66 @@
   fill: rgb("#f1f5f6"),
   stroke: rgb("#f1f5f6") + 2pt,
 )
+
+// title page
+#{
+  v(1cm)
+
+  grid(
+    columns: 4,
+    column-gutter: 1em,
+    align: bottom,
+    image("images/logo_catg.svg", height: 1.5cm),
+    image("images/logo_umag.svg", height: 1.4cm),
+    h(1fr),
+    image("images/logo_inach.svg", height: 1.3cm),
+  )
+
+  v(4.5cm)
+
+  [
+    #set align(center)
+    #[
+      #set text(size: 1.85em, style: "italic", fill: rgb("2C3E50"))
+      Descifrando el Microbioma del Tracto Digestivo del Krill Antártico: \ Aplicando el Flujo de Trabajo MinION
+    ]
+
+    #line(length: 85%, stroke: 1pt + catg-colors.blue)
+
+    #[
+      #set text(size: 1.3em, fill: rgb("708090"))
+      Taller de Análisis de Datos de Oxford Nanopore
+    ]
+
+    #v(6cm)
+
+    #[
+      #set text(size: 1.1em, fill: rgb("#929eaa"))
+      Jacqueline Aldridge A.
+      #[
+        #set text(fill: rgb("#186b97"))
+        [jacqueline.aldridge\@umag.cl]
+      ]
+      #v(0em)
+      Diego Alvarez S.
+      #[
+        #set text(fill: rgb("#186b97"))
+        [diego.alvarez\@umag.cl]
+      ]
+    ]
+
+    #v(1fr)
+
+    #[
+      #set text(size: 1.1em, fill: rgb("929eaa"))
+      Punta Arenas, Chile #h(0.5em) / #h(0.5em) Octubre 2024
+    ]
+
+    #v(1cm)
+  ]
+
+  pagebreak()
+}
 
 #context [
   #set par(leading: 1em)
