@@ -32,7 +32,7 @@
     columns: 4,
     column-gutter: 1em,
     align: bottom,
-    image("images/logo_catg.svg", height: 1.5cm),
+    image("images/logo_catg.svg", height: 2cm),
     image("images/logo_umag.svg", height: 1.4cm),
     h(1fr),
     image("images/logo_inach.svg", height: 1.3cm),
