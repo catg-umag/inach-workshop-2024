@@ -100,6 +100,9 @@
       . #h(3pt)
     ]),
   )
+
+  #v(1fr)
+  Repositorio del workshop: https://github.com/catg-umag/inach-workshop-2024
 ]
 
 #pagebreak()
