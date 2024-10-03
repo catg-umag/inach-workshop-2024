@@ -1,20 +1,20 @@
-#import "@preview/gentle-clues:0.9.0": *
+#import "@preview/gentle-clues:1.0.0": *
 #import "../catgconf.typ": cmd
 
 
 = Entorno de Trabajo
 
-== Línea de Comandos
+== Línea de comandos
 
 La línea de comandos es una interfaz de texto que permite interactuar con el sistema operativo mediante comandos. Es fundamental al procesar datos bioinformáticos, ya que muchas herramientas carecen de interfaz gráfica y el uso de la terminal facilita la automatización y ejecución de tareas en entornos HPC o en la nube.
 
-Un comando es una instrucción que se escribe en la terminal y se ejecuta al presionar Enter. La estructura típica de un comando es:
+Un comando es una instrucción que se escribe en la terminal y se ejecuta al presionar #cmd(`Enter`). La estructura típica de un comando es:
 ```sh
 comando [subcomando] [opciones] <argumentos>
 ```
-Los #cmd(`<argumentos>`) suelen ser archivos de entrada y salida, mientras que las #cmd(`opciones`) modifican el comportamiento del comando. Estas pueden ser largas (#cmd(`--opcion`)) o cortas (#cmd(`-o`)), y a veces requieren argumentos. Finalmente, algunos comandos poseen #cmd(`[subcomandos]`).
+Los #cmd(`<argumentos>`) suelen ser archivos de entrada y salida, mientras que las #cmd(`opciones`) modifican el comportamiento del comando. Estas pueden ser largas (#cmd(`--opcion`)) o cortas (#cmd(`-o`)), y pueden requerir argumentos. Finalmente, algunos comandos poseen #cmd(`[subcomandos]`), que permiten realizar tareas específicas.
 
-#tip[
+#tip(title: "Ayuda en comandos")[
   Para obtener ayuda sobre un comando, utiliza #cmd(`--help`) o #cmd(`-h`). Por ejemplo: #cmd(`git --help`).
 
   Los corchetes (#cmd(`[ ]`)) indican argumentos opcionales, mientras que los obligatorios se escriben con corchetes angulares (#cmd(`< >`)) o sin ellos.
@@ -57,6 +57,8 @@ mv sample01.fastq data/                 # Mueve el archivo al destino
 mv config.test.txt config.txt           # Cambia el nombre del archivo
 ```
 
+#pagebreak()
+
 #heading([#cmd(`rm`) -- Eliminar archivos o directorios], depth: 3, numbering: none)
 ```sh
 rm test.txt                             # Elimina el archivo
@@ -76,6 +78,11 @@ head -n 10 sequences.fasta              # Muestra las primeras 10 líneas
 tail -n 5 sequences.fasta               # Muestra las últimas 5 líneas
 ```
 
+#heading([Redirección de salida], depth: 3, numbering: none)
+```sh
+head -n 100 sequences.fa > subset.fa    # Guarda la salida del comando ejecutado en un archivo
+```
+
 == Tipos de archivos relevantes al procesar datos bioinformáticos
 
 #align(
@@ -86,15 +93,15 @@ tail -n 5 sequences.fasta               # Muestra las últimas 5 líneas
     table.header([Tipo], [Extensión], [Contenido]),
     [FASTA], [#cmd(`.fasta`) #cmd(`.fa`) #cmd(`.fna`) #cmd(`.fsa`) #cmd(`.faa`)], [Secuencias biológicas],
     [FASTQ], [#cmd(`.fastq`) #cmd(`.fq`)], [Secuencias biológicas con calidad],
-    [SAM], [#cmd(`.sam`)], [Alineamiento de secuencias contra una referencia],
     [BAM], [#cmd(`.bam`) #cmd(`.ubam`)], [Alineamiento de secuencias contra una referencia (comprimido)],
     [POD5], [#cmd(`.pod5`)], [Datos crudos de Oxford Nanopore],
     [CSV / TSV], [#cmd(`.csv`) #cmd(`.tsv`)], [Datos tabulares separados por comas (CSV) o tabulaciones (TSV)],
+    [YAML], [#cmd(`.yaml`) #cmd(`.yml`)], [Datos estructurados en formato YAML],
   ),
 )
 
-#tip[
-  Es común encontrar comprimir los archivos para ahorrar espacio de almacenamiento. Los archivos comprimidos tienen la extensión adicional #cmd(`.gz`). Para descomprimirlos, debes utilizar el comando #cmd(`gunzip`).
+#tip(title: "Archivos comprimidos")[
+  Es común comprimir los archivos para ahorrar espacio de almacenamiento. Los archivos comprimidos generalmente tienen la extensión adicional #cmd(`.gz`). Para descomprimirlos, debes utilizar el comando #cmd(`gunzip`).
   ```sh
   gunzip sequences.fastq.gz             # Descomprime el archivo
   head sequences.fastq                  # Visualiza las primeras líneas del archivo descomprimido
@@ -103,7 +110,7 @@ tail -n 5 sequences.fasta               # Muestra las últimas 5 líneas
 
 == Gestión de entorno de trabajo con mamba
 
-Mamba es un gestor de paquetes que facilita la instalación y gestión de paquetes de Python y R, y también herramientas bioinformáticas. Estos paquetes se instalan en 'ambientes', que aíslan las dependencias de proyectos y ofrecen un entorno reproducible. Los ambientes se pueden activar y desactivar según sea necesario. Los paquetes están disponibles en 'canales', donde destacan #link("https://conda-forge.org/")[conda-forge] (paquetes de Python y R) y #link("https://bioconda.github.io/")[bioconda] (herramientas bioinformáticas).
+Mamba es un gestor de paquetes que facilita la instalación y gestión de paquetes de Python y R, y también herramientas bioinformáticas. Estos paquetes se instalan en 'ambientes', entornos de trabajo aislados y reproducibles que mantienen la instalación de paquetes separada de otros ambientes y del sistema operativo. Los ambientes pueden activarse y desactivarse según sea necesario. Los paquetes están disponibles en 'canales', destacando #link("https://conda-forge.org/")[conda-forge] para paquetes de Python y R y #link("https://bioconda.github.io/")[bioconda] para herramientas bioinformáticas.
 
 Algunas de las tareas más comunes que se pueden realizar con Mamba son:
 
@@ -113,6 +120,8 @@ mamba env list                          # Lista los ambientes disponibles
 mamba create -n qc                      # Crea un ambiente llamado 'qc'
 mamba env remove -n analysis            # Elimina el ambiente 'analysis'
 ```
+
+#pagebreak()
 
 #heading([Activar y desactivar ambientes], depth: 3, numbering: none)
 ```sh

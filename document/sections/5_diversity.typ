@@ -1,4 +1,4 @@
-#import "@preview/gentle-clues:0.9.0": *
+#import "@preview/gentle-clues:1.0.0": *
 #import "../catgconf.typ": github-pill, cmd
 
 
@@ -17,9 +17,10 @@ Para construir las curvas de rarefacción, podemos utilizar la función #link("h
 library(vegan)
 
 min_reads <- min(rowSums(count_data_t))  # número mínimo de secuencias en una muestra
-
 rarecurve(count_data_t, step = 20, sample = min_reads)
 ```
+
+#pagebreak()
 
 == Diversidad Alfa
 
@@ -45,7 +46,7 @@ data_richness <- estimateR(data_otu)
 data_evenness <- diversity(data_otu) / log(specnumber(data_otu))
 data_shannon <- diversity(data_otu, index = "shannon")
 ```
-#info[
+#info(title: "Normalización y diversidad alfa")[
   La diversidad alfa habitualmente se calcula sobre los datos sin procesar y sin normalizar, ya que se busca evaluar la diversidad por muestra y no comparar muestras entre sí.
   // It is important to not use filtered data because many richness estimates are modeled on singletons and doubletons in the occurrence table. So, you need to leave them in the dataset if you want a meaningful estimate.
   // Moreover, we usually not using normalized data because we want to assess the diversity on the raw data and we are not comparing samples to each other but only assessing diversity within each sample.
@@ -62,12 +63,13 @@ La diversidad beta se utiliza para evaluar las diferencias de diversidad entre m
 - *Jaccard*: Calcula la disimilitud tomando en cuenta solo la presencia o ausencia de los taxones, sin considerar la abundancia.
 - *Unifrac*: Calcula la distancia filogenética entre comunidades. Se puede calcular en dos formas:
   - *Unweighted UniFrac*: Considera solo la presencia o ausencia de OTUs (sin abundancia).
-  - *Weighted UniFrac*: Incluye tanto la abundancia como la evolución filogenética de los OTUs. //Se basa en la presencia/ausencia de las especies en las muestras, incluyendo información de la abundancia.
+  - *Weighted UniFrac*: Incluye tanto la abundancia como la evolución filogenética de los OTUs. // Se basa en la presencia/ausencia de las especies en las muestras, incluyendo información de la abundancia.
 
 // BRAY CURTIS EXAMINA LA ABUNDANCIA COMPARTIDA ENTRE GROUPIOS
 
 // https://scienceparkstudygroup.github.io/microbiome-lesson/06-beta-diversity/index.html
 
+#pagebreak()
 
 Para calcular la diversidad beta, necesitamos el archivo de abundancias generado en el paso anterior y un archivo de metadatos. A continuación, un ejemplo de archivo de metadatos:
 ```CSV
@@ -94,12 +96,12 @@ bray_dist <- vegdist(data_otu, method = "bray")
 pcoa_res <- cmdscale(bray_dist, eig = TRUE)
 ```
 
-#tip[
+#tip(title: "Varianza explicada en un PCoA")[
   Al realizar un análisis de coordenadas principales (PCoA), es importante tener en cuenta que los valores propios (eigenvalues) representan la varianza explicada por cada componente. Un eigenvalue alto indica que ese eje captura una mayor cantidad de la varianza total de los datos, lo que permite una mejor interpretación de la estructura de las muestras.
 ]
 
 
-HACER ANALISIS ESTADISTICOS
+// HACER ANALISIS ESTADISTICOS
 
 //The eigenvalue represents the variance displayed (“explained” or “extracted”) by the kth axis
 //Each eigenvector consists of p values which represent the “contribution” of each variable to the principal component axis

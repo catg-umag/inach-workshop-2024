@@ -10,16 +10,15 @@ Oxford Nanopore ha desarrollado múltiples basecallers haciendo uso de diversos 
 
 == Precisión del basecalling
 
-Dorado cuenta con múltiples modelos de basecalling, cada uno con diferentes equilibrios entre precisión y requerimientos computacionales. Actualmente, los modelos disponibles son tres:
-
+Dorado cuenta con múltiples modelos de basecalling, cada uno con diferentes equilibrios entre precisión y requerimientos computacionales: `fast`, `hac`, y `sup`. Estos modelos se actualizan continuamente con nuevas versiones.
 
 #align(
   center,
   table(
     columns: 3,
     align: (left, center, left),
-    table.header([Modelo], [Precisión Simplex], [Requerimientos computacionales]),
-    [fast (`fast`)], [95.5%], [],
+    table.header([Modelo], [Precisión simplex], [Requerimientos computacionales]),
+    [fast (`fast`)], [95.50%], [],
     [high accuracy (`hac`)], [99.25%], [7.5 veces lo requerido por #cmd(`fast`)],
     [super accuracy (`sup`)], [99.75%], [8.5 veces lo requerido por #cmd(`hac`)],
   ),
@@ -28,23 +27,23 @@ Dorado cuenta con múltiples modelos de basecalling, cada uno con diferentes equ
 #figure(
   image("../images/raw_accuracy.png", width: 80%),
   caption: [
-    Precisión actual de los modelos de basecalling de Oxford Nanopore, usando el Kit V14 y celdas R10.4.1 de PromethION para secuenciación de genoma humano. _Fuente: #link("https://nanoporetech.com/es/platform/accuracy")_.
+    Precisión actual de los modelos de basecalling de Oxford Nanopore, con el Kit V14 y celdas R10.4.1 de PromethION en secuenciación de genoma humano. _Fuente: #link("https://nanoporetech.com/es/platform/accuracy")_.
   ],
 )
 
-Usar el modelo #cmd(`sup`) es la opción recomendada si se busca obtener la máxima precisión posible. Sin embargo, este modelo tiene un costo computacional tan elevado que se vuelve impráctico de usar sin hardware dedicado (GPU).
+El modelo #cmd(`sup`) ofrece la máxima precisión, pero sus altos requisitos computacionales lo hacen impráctico de utilizar sin hardware especializado (GPU de gama alta).
 
 
-== Uso básico de Dorado
+== Uso de Dorado
 #github-pill("nanoporetech/dorado")
 
-Dorado posee múltiples subcomandos con distintas funcionalidades, que incluyen basecalling, demultiplexación, descarga de modelos y otras.
+Dorado posee múltiples subcomandos con distintas funcionalidades, que incluyen basecalling, demultiplexación y descarga de modelos, entre otras.
 
 === Basecalling
 
-Para basecalling, se utiliza el subcomando #cmd(`dorado basecaller`). La forma más básica de ejecutar este comando necesita el modelo a utilizar en el basecalling y el directorio con los archivos POD5. Por ejemplo, si tenemos el directorio `pod5/` y queremos utilizar el modelo `sup`, debemos utilizar el siguiente comando:
+Para basecalling, se utiliza el subcomando #cmd(`dorado basecaller`). Par ejecutar este comando se requiere como mínimo el modelo a utilizar y el directorio con los archivos POD5. Por ejemplo, si tenemos el directorio `pod5/` y queremos utilizar el modelo `sup` en su versión 5.0.0, debemos utilizar el siguiente comando:
 ```sh
-dorado basecaller sup pod5/ > reads.ubam
+dorado basecaller sup@5.0.0 pod5/ > reads.ubam
 ```
 Existen múltiples opciones adicionales que se pueden visualizar en la ayuda del comando.
 

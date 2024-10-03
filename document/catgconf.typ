@@ -25,16 +25,20 @@
 
   set page(
     paper: "us-letter",
-    margin: (top: 2.3cm, right: 2cm, bottom: 2.3cm, left: 2cm),
+    margin: (top: 2cm, right: 2cm, bottom: 2cm, left: 2cm),
     numbering: "1 of 1",
+    footer-descent: 20%,
     header: context [
       #set text(fill: gray, size: 0.9em)
       #grid(
         columns: (1fr, 1fr),
         align: (left, right),
-        [Oxford Nanopore Data Analysis], [
+        title,
+        [
           #emph(authors.join(" & "))
-          #if (date != "") { [| #emph(date)] }
+          #if (date != "") {
+            [| #emph(date)]
+          }
         ],
       )
     ],
@@ -56,7 +60,7 @@
   )
 
   // Heading
-  set heading(numbering: "1.1")
+  set heading(numbering: "1.1 ")
 
   show heading: it => {
     set text(
@@ -73,7 +77,7 @@
       inset: (bottom: 0.3em),
       [
         #if (it.numbering != none) [
-          #counter(heading).display(it.numbering) #h(4pt) | #h(4pt) 
+          #counter(heading).display(it.numbering) | #h(0.3em)
         ]
         #it.body
       ],
@@ -95,15 +99,25 @@
   show table.cell.where(y: 0): set text(fill: white)
   let frame(stroke) = (
     (x, y) => (
-      left: if x == 0 { stroke } else { 0pt },
+      left: if x == 0 {
+        stroke
+      } else {
+        0pt
+      },
       right: stroke,
-      top: if y < 2 { stroke } else { 0pt },
+      top: if y < 2 {
+        stroke
+      } else {
+        0pt
+      },
       bottom: stroke,
     )
   )
   set table(
     stroke: frame(rgb("#418dc0") + 0.7pt),
-    fill: (_, y) => if y == 0 { rgb("#418dc0") },
+    fill: (_, y) => if y == 0 {
+      rgb("#418dc0")
+    },
   )
 
   show link: set text(fill: rgb("#144e6e"))
