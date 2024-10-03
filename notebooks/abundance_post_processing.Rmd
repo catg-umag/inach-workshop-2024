@@ -1,0 +1,55 @@
+---
+title: "Post procesamiento de datos de abundancia"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(vegan)
+```
+Cargar datos de abundancia
+```{r}
+count_data <- read_tsv("abundance_table_genus_silva.tsv", show_col_types = FALSE)
+```
+
+
+# Eliminación de especies poco abundantes
+
+Eliminar taxones que tengan < 0.01% en todas las muestras
+```{r}
+count_data_filtered <- count_data %>%
+  column_to_rownames("tax") %>%
+  select(-total, -starts_with("Unclassified")) %>%
+  filter_all(any_vars(. / sum(.) > 0.0001))  %>%
+  as.data.frame() 
+```
+
+¿Cuantos taxones quedaron?
+```{r}
+nrow(count_data_filtered)
+```
+¿Cuántas lecturas quedaron por cada muestra?
+```{r}
+colSums(count_data_filtered)
+```
+Guardar datos filtrados
+```{r}
+count_data_filtered %>%
+  write_tsv("abundance_table_genus_silva_filtered.tsv")
+```
+
+
+
+# Normalización de datos
+
+Uso de TSS (Total Sum Scaling) para normalizar los datos
+```{r}
+count_data_normalized <- decostand(count_data_filtered, method = "total")
+```
+
+Guardar datos normalizados
+```{r}
+count_data_normalized %>%
+  write_tsv("abundance_table_genus_silva_normalized.tsv")
+```
+
