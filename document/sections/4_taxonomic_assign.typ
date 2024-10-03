@@ -3,23 +3,22 @@
 = Asignación taxonómica
 
 == NanoCLUST
-#github-pill("genomicsITER/NanoCLUST")
-
+#github-pill("genomicsITER/NanoCLUST") #h(3pt) #doi-pill("10.1093/bioinformatics/btaa900") \
 NanoCLUST es un flujo de trabajo desarrollado en Nextflow para la clasificación de amplicones del gen 16S obtenidos mediante secuenciación por Nanopore. Utiliza un enfoque de clustering no supervisado seguido por una proyección UMAP y una corrección de errores de cada cluster previo a la asignación taxonómica. Para la asignación taxonómica utiliza BLAST y la base de datos de 16S de Genbank.
 
-Para utilizar esta herramienta se debe contar con una versión de nextflow menor o igual a 22.04 y se debe tener la base de datos de 16S de Genbank (instrucciones de descarga en el repositorio de NanoCLUST).
+Para utilizar esta herramienta se debe contar con una versión de Nextflow menor o igual a 22.04 y se debe descargar la base de datos de 16S de Genbank (instrucciones en el repositorio de NanoCLUST).
 ```sh
 nextflow run main.nf \ 
-             -profile docker \ 
-             --reads 'sample.fastq' \ 
-             --db "db/16S_ribosomal_RNA" \ 
-             --tax "db/taxdb/"
+    -profile docker \ 
+    --reads 'sample.fastq' \ 
+    --db "db/16S_ribosomal_RNA" \ 
+    --tax "db/taxdb/"
 ```
 
 == EMU
-#doi-pill("10.1038/s41592-022-01520-4")
+#github-pill("https://github.com/treangenlab/emu") #h(3pt) #doi-pill("10.1038/s41592-022-01520-4")
 
-EMU es una herramienta diseñada para mejorar la precisión de la asignación taxonómica mediante una corrección de errores utilizando un enfoque basado en algoritmos de maximización de expectativas y alineamiento de las secuencias corregidas mediante la herramienta Minimap2.. Ofrece compatibilidad con diversas bases de datos, como Genbank, RDP y Silva (v.138). Además, en el caso de realizar análisis de la región ITS, permite integrar las base de datos de UNITE que se especializa en taxonomía de hongos y eucariotas.
+EMU es una herramienta diseñada para mejorar la precisión de la asignación taxonómica mediante una corrección de errores utilizando un enfoque basado en algoritmos de maximización de expectativas y alineamiento de las secuencias corregidas mediante la herramienta Minimap2. Ofrece compatibilidad con diversas bases de datos, como Genbank, RDP y Silva (v.138). Además, en el caso de realizar análisis de la región ITS, permite integrar las base de datos de UNITE que se especializa en taxonomía de hongos y eucariotas.
 
 Para utilizar EMU se debe descargar su base de datos e instalar las dependencias necesarias (instrucciones de instalación en el repositorio de EMU).
 ```sh
@@ -27,8 +26,8 @@ emu abundance example/full_length.fa
 ```
 
 == EPI2ME wf-16S
-#github-pill("epi2me-labs/wf-16s")
-Pipeline bioinformático desarrollado por EPI2ME-Labs. Cuenta con dos enfoques para la asignación taxonómica: Alineamiento de secuencias mediante Minimap2, o asignación taxonómica basada en `k-mers` mediante Kraken2 (y bracken2 para la corrección). Permite utilizar tanto la base de datos de SILVA (versión 138) como la base de datos de Genbank de 16S y 18S.
+#github-pill("epi2me-labs/wf-16s") \
+Pipeline bioinformático desarrollado por EPI2ME-Labs. Cuenta con dos enfoques para la asignación taxonómica: Alineamiento de secuencias mediante Minimap2, o asignación taxonómica basada en k-mers mediante Kraken2 (y bracken2 para la corrección). Permite utilizar tanto la base de datos de SILVA (versión 138) como la base de datos de Genbank de 16S y 18S.
 
 Por defecto filtra las lecturas por tamaño (entre 800pb y 2000pb) y no realiza filtros por calidad.
 Para considerar una asignación taxonómica exige un porcentaje de identidad de 95 % y una cobertura de 90%.
@@ -46,17 +45,7 @@ Puede ejecutarse mediante la interfaz de línea de comandos o mediante una aplic
 
 === Mediante línea de comando
 
-
-
-
-
-
-
-
-
-
-
-Para ejecutarlo mediante línea de comando solamente se debe contar con Nextflow ya que las bases de datos se van a descargar automáticacamente:Ejemplo de uso:
+Para ejecutarlo mediante línea de comando solamente se debe contar con Nextflow ya que las bases de datos se van a descargar automáticacamente. Ejemplo de uso:
 ```sh
  nextflow run epi2me-labs/wf-16s \
      --classifier kraken2 --database_set SILVA_138_1 \
