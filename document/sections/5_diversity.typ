@@ -2,10 +2,6 @@
 #import "../catgconf.typ": github-pill, cmd
 
 
-// https://carpentries-lab.github.io/metagenomics-analysis/08-Diversity-tackled-with-R/index.html
-
-// avgdist --> no todas las muestras tienen la misma cantidad de seqs --> sampling
-
 = Análisis de Diversidad
 #github-pill("vegandevs/vegan")
 
@@ -24,7 +20,6 @@ rarecurve(count_data_t, step = 20, sample = min_reads)
 
 == Diversidad Alfa
 
-// https://scienceparkstudygroup.github.io/microbiome-lesson/04-alpha-diversity/index.html
 Las métricas de diversidad alfa se emplean para medir la diversidad dentro de una muestra o ecosistema, es decir, la cantidad de especies y/o su abundancia relativa.
 
 Las métricas más comunes de diversidad alfa incluyen:
@@ -36,7 +31,6 @@ Las métricas más comunes de diversidad alfa incluyen:
   _Interpretación_: Valores altos indican mayor diversidad y equidad, mientras que valores bajos pueden señalar una baja equidad o riqueza.
 - *Chao1*: Estimación de la riqueza total, incluyendo especies no observadas. \
   _Interpretación_: Si el valor de Chao1 es significativamente mayor que la riqueza observada, indica que el muestreo fue insuficiente para detectar todas las especies presentes.
-// - Simpson: Mide la probabilidad de que dos individuos seleccionados al azar pertenezcan a la misma especie.
 
 Para calcular estas métricas en R, también usaremos el paquete vegan.
 ```R
@@ -48,8 +42,6 @@ data_shannon <- diversity(data_otu, index = "shannon")
 ```
 #info(title: "Normalización y diversidad alfa")[
   La diversidad alfa habitualmente se calcula sobre los datos sin procesar y sin normalizar, ya que se busca evaluar la diversidad por muestra y no comparar muestras entre sí.
-  // It is important to not use filtered data because many richness estimates are modeled on singletons and doubletons in the occurrence table. So, you need to leave them in the dataset if you want a meaningful estimate.
-  // Moreover, we usually not using normalized data because we want to assess the diversity on the raw data and we are not comparing samples to each other but only assessing diversity within each sample.
 ]
 
 #heading([Pruebas estadísticas], level: 3, numbering: none)
@@ -57,17 +49,12 @@ data_shannon <- diversity(data_otu, index = "shannon")
 Podemos utilizar diferentes test estádisticos para comprobar si existen diferencias significativas entre los grupos: pruebas no paramétricas como el test de Kruskal-Wallis o el test de Mann-Whitney o pruebas parámetricas como t-test y ANOVA. Antes de utilizar pruebas parámetricas se debe comprobar la normalidad y hococedasticidad de los datos.
 
 == Diversidad Beta
-// tutorial: https://scienceparkstudygroup.github.io/microbiome-lesson/06-beta-diversity/index.html
 La diversidad beta se utiliza para evaluar las diferencias de diversidad entre muestras o ecosistemas, es decir, qué tan similares o diferentes son las comunidades microbianas entre sí. Estas métricas de distancia varían entre cero y uno, y las más comunes son: // Bray-Curtis, Jaccard, Unifrac, entre otros.
 - *Bray-Curtis*: Calcula la disimilitud entre muestras basándose en la abundancia de los taxones presentes en ellas.
 - *Jaccard*: Calcula la disimilitud tomando en cuenta solo la presencia o ausencia de los taxones, sin considerar la abundancia.
 - *Unifrac*: Calcula la distancia filogenética entre comunidades. Se puede calcular en dos formas:
   - *Unweighted UniFrac*: Considera solo la presencia o ausencia de OTUs (sin abundancia).
   - *Weighted UniFrac*: Incluye tanto la abundancia como la evolución filogenética de los OTUs. // Se basa en la presencia/ausencia de las especies en las muestras, incluyendo información de la abundancia.
-
-// BRAY CURTIS EXAMINA LA ABUNDANCIA COMPARTIDA ENTRE GROUPIOS
-
-// https://scienceparkstudygroup.github.io/microbiome-lesson/06-beta-diversity/index.html
 
 #pagebreak()
 
@@ -84,7 +71,6 @@ sample	sex	    Area	latitude	long	    deep
 ```
 
 Para visualizar la diversidad beta, se utilizan matrices de disimilitud, como Bray-Curtis o Jaccard, que luego se proyectan en un espacio bidimensional utilizando un Análisis de Coordenadas Principales (PCoA). Esta técnica reduce la dimensionalidad de los datos, facilitando la visualización de las relaciones entre muestras.
-// Another commonly-used MDS approach is Principal Coordinates Analysis (PCoA), also known as classical multidimensional scaling. It relies on eigenvalue decomposition in its calculations.
 
 Algunas funciones útiles para este análisis en R son:
 - #link("https://vegandevs.github.io/vegan/reference/vegdist.html")[#cmd(`vegdist()`)]: Calcula una matriz de disimilitud entre las muestras, permitiendo elegir entre métricas como Bray-Curtis, Jaccard, Euclidiana, entre otras.
@@ -101,11 +87,3 @@ pcoa_res <- cmdscale(bray_dist, eig = TRUE)
 ]
 
 
-// HACER ANALISIS ESTADISTICOS
-
-//The eigenvalue represents the variance displayed (“explained” or “extracted”) by the kth axis
-//Each eigenvector consists of p values which represent the “contribution” of each variable to the principal component axis
-
-// hacer una lista
-// distancia euclideana vs otras distiancias por que las otras son mejores
-// Microbiota data are sparse and specific distances, such as Bray-Curtis, Jaccard or weight/unweight Unifrac distances, better deal with the problem of the presence of many double zeros in data sets.

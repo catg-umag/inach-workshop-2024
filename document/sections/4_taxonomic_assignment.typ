@@ -177,11 +177,6 @@ count_data_filtered <- count_data %>%
 ```
 
 == Normalización por muestra
-
-// https://scienceparkstudygroup.github.io/microbiome-lesson/05-data-filtering-and-normalisation/index.html
-
-// https://anf-metabiodiv.github.io/course-material/courses/beta_diversity.pdf
-
 Es común que la cantidad de lecturas varíe significativamente entre las muestras, lo que provoca que los conteos obtenidos en la asignación taxonómica presenten grandes variaciones. Para comparar las muestras de manera justa, es necesario normalizar los datos y corregir el sesgo en la abundancia de especies debido a estas diferencias.
 
 Existen diversas metodologías para normalizar: el submuestreo utilizando un tamaño mínimo, el escalamiento dividiendo cada abundancia por un factor para compensar el sesgo de muestreo, entre otras.
@@ -191,5 +186,3 @@ Por ejemplo, podemos normalizar mediante Total Sum Scaling (TSS), usando la func
 ```R
 data_normalized <- decostand(count_data_filtered, method = "total")
 ```
-
-//https://scienceparkstudygroup.github.io/microbiome-lesson/05-data-filtering-and-normalisation/index.html
