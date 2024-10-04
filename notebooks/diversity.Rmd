@@ -8,6 +8,26 @@ library(tidyverse)
 library(RColorBrewer)
 library(vegan)
 library(ggsignif)
+library(glue)
+library(measurements)
+library(stringr)
+```
+
+```{r}
+# convert lat/long from DMS to DEG
+conv_to_deg <- function(dms_value) {
+  dms <- sapply(dms_value, function(x) {
+    dms_clean <- x %>%
+      str_replace("°", "") %>%
+      str_replace(",", " ") %>%
+      str_split(" ", simplify = T)
+    dms_clean[3] <- as.numeric(paste0("0.", dms_clean[3])) * 60
+    
+    paste(dms_clean, collapse = ' ')
+  })
+  
+  return(as.numeric(conv_unit(dms, from = "deg_min_sec", to = "dec_deg")))
+}
 ```
 
 Carga de datos
@@ -60,7 +80,8 @@ ggplot(alphadiv_values, aes(x=sex, y=value, fill=sex)) +
   geom_boxplot() +
   geom_point() +
   geom_signif(
-    comparisons = list(c("Male", "Female"))#,
+    comparisons = list(c("Male", "Female")),
+    test = wilcox.test#,
     # map_signif_level = TRUE
   ) +
   scale_y_continuous(expand = c(0.1, 0)) +
@@ -78,5 +99,35 @@ bray_dist <- vegdist(count_data_normalized, method = "bray")
 bray_pcoa <- cmdscale(bray_dist, eig=TRUE)
 df_bray_pcoa <- bind_cols(metadata, as.data.frame(bray_pcoa$points))
 
+# jaccard
+jaccard_dist <- vegdist(count_data_normalized, method = "jaccard")
+jaccard_pcoa <- cmdscale(jaccard_dist, eig=TRUE)
+df_jaccard_pcoa <- bind_cols(metadata, as.data.frame(jaccard_pcoa$points))
+```
+
+# Porcentaje de varianza explicada
+```{r}
+calculate_variance_explained <- function(pcoa_object) {
+  eigenvalues <- pcoa_object$eig
+  total_variance <- sum(eigenvalues)
+  var_explained <- eigenvalues / total_variance
+ 
+  return(round(var_explained * 100, 2))
+}
+
+bray_expl_var <- calculate_variance_explained(bray_pcoa)
+jaccard_expl_var <- calculate_variance_explained(jaccard_pcoa)
+```
+
+# Posición de mu
+```{r}
+ggplot(df_bray_pcoa, aes(x = V1, y = V2, color = sex, label = sample)) + 
+  geom_point(size = 3) +
+  geom_text(hjust=-0.2, vjust=-0.2, col="black") +
+  theme_light() +
+  labs(
+    x = glue("PCoA Axis 1 ({bray_expl_var[1]}%)"),
+    y = glue("PCoA Axis 2 ({bray_expl_var[2]}%)")
+  )
 ```
 
