@@ -28,11 +28,19 @@ count_data_filtered <- count_data %>%
 ```{r}
 nrow(count_data_filtered)
 ```
+¿Cuántas lecturas eran por cada muestra (antes de los filtros)?
+```{r}
+count_data_t <- count_data %>%
+  t()
+colSums(count_data)
+
+```
 ¿Cuántas lecturas quedaron por cada muestra?
 ```{r}
 colSums(count_data_filtered)
 ```
 Guardar datos filtrados
+
 ```{r}
 count_data_filtered %>%
   rownames_to_column("tax") %>%
