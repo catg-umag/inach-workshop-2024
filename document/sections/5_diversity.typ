@@ -59,7 +59,7 @@ La diversidad beta se utiliza para evaluar las diferencias de diversidad entre m
 #pagebreak()
 
 Para calcular la diversidad beta, necesitamos el archivo de abundancias generado en el paso anterior y un archivo de metadatos. A continuación, un ejemplo de archivo de metadatos:
-```CSV
+```TSV
 sample	sex	    Area	latitude	long	    deep
 1M	    Male	  48.2	60° 25,0	46° 41.8	 60-80
 4H	    Female	48.2	60° 33,1	46° 02.3	120-150

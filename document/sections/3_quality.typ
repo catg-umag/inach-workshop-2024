@@ -152,7 +152,7 @@ nanoq --input barcode01.fastq.gz --output barcode01_filtered.fastq.gz \
 == MultiQC
 #github-pill("MultiQC/MultiQC")
 
-MultiQC permite presentar resultados de reportes de múltiples herramientas y múltiples muestras en un único reporte HTML. Soporta un gran cantidad herramientas bioinformáticas como FastQC, nanoq, fastp, cutadapt y NanoPlot. La lista de herramientas soportadas se puede encontrar en la sección #link("https://multiqc.info/docs/#multiqc-modules")[MultiQC modules] de la documentación.
+MultiQC permite integrar resultados de reportes de múltiples herramientas y múltiples muestras en un único reporte HTML. Soporta un gran cantidad herramientas bioinformáticas como FastQC, nanoq, fastp, cutadapt y NanoPlot. La lista de herramientas soportadas se puede encontrar en la sección #link("https://multiqc.info/docs/#multiqc-modules")[MultiQC modules] de la documentación.
 
 MultiQC requiere como argumento el directorio donde se encuentren los reportes generados por las herramientas. Si se indica #cmd(`.`), MultiQC buscará los reportes en el directorio actual. Ejemplo:
 ```sh
