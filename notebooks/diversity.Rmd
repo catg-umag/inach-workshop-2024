@@ -73,6 +73,10 @@ ggplot(alphadiv_values, aes(x=sex, y=value, fill=sex)) +
 # Diversidad beta
 
 ```{r}
+# bray curtis
+bray_dist <- vegdist(count_data_normalized, method = "bray")
+bray_pcoa <- cmdscale(bray_dist, eig=TRUE)
+df_bray_pcoa <- bind_cols(metadata, as.data.frame(bray_pcoa$points))
 
 ```
 
