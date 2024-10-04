@@ -11,6 +11,9 @@ library(vegan)
 
 Carga de datos
 ```{r}
+count_data <- read_tsv("abundance_table_genus_silva.tsv", show_col_types = FALSE) %>%
+  column_to_rownames("tax") %>%
+  select(-total) 
 count_data_filtered <- read_tsv("abundance_table_genus_silva_filtered.tsv", show_col_types = FALSE) %>%
   column_to_rownames("tax") %>%
   t()
@@ -27,7 +30,10 @@ metadata <- read_tsv("metadata.tsv", show_col_types = FALSE)
 
 ```{r, fig.width=8, fig.height=6}
 raremax <- min(colSums(count_data_filtered))
+```
 
+
+```{r, fig.width=8, fig.height=6}
 # sin filtrar
 rarecurve(count_data %>% t(), step = 100, sample=raremax, col = brewer.pal(8, "Set1"))
 # filtrado
