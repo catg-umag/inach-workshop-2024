@@ -9,12 +9,13 @@ library(RColorBrewer)
 library(vegan)
 library(ggsignif)
 library(glue)
-library(measurements)
 library(stringr)
 ```
 
 ```{r}
 # convert lat/long from DMS to DEG
+library(measurements)
+
 conv_to_deg <- function(dms_value) {
   dms <- sapply(dms_value, function(x) {
     dms_clean <- x %>%
