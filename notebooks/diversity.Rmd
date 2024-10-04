@@ -1,0 +1,59 @@
+---
+title: "Diversidad"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(RColorBrewer)
+library(vegan)
+```
+
+Carga de datos
+```{r}
+count_data_filtered <- read_tsv("abundance_table_genus_silva_filtered.tsv", show_col_types = FALSE) %>%
+  column_to_rownames("tax") %>%
+  t()
+count_data_normalized <- read_tsv("abundance_table_genus_silva_normalized.tsv", show_col_types = FALSE) %>%
+  column_to_rownames("tax") %>%
+  t()
+
+metadata <- read_tsv("metadata.tsv", show_col_types = FALSE)
+```
+
+
+
+# Curvas de rarefacción
+
+```{r, fig.width=8, fig.height=6}
+raremax <- min(colSums(count_data_filtered))
+
+# sin filtrar
+rarecurve(count_data %>% t(), step = 100, sample=raremax, col = brewer.pal(8, "Set1"))
+# filtrado
+rarecurve(count_data_filtered, step = 100, sample=raremax, col = brewer.pal(8, "Set1"))
+```
+
+# Diversidad alfa
+
+```{r}
+data_richness <- estimateR(count_data_filtered)
+data_evenness <- data.frame(Evenness=diversity(count_data_normalized) / log(specnumber(count_data_normalized)))
+data_shannon <- data.frame(Shannon=diversity(count_data_normalized, index = "shannon"))
+
+data_alphadiv <- bind_cols(metadata,  t(data_richness), data_shannon, data_evenness)
+```
+
+```{r, fig.width=8, fig.height=6}
+alphadiv_values <- data_alphadiv %>%
+  select(sample, sex, Richness=S.obs, Chao1=S.chao1 , Shannon, Evenness) %>%
+  pivot_longer(-c(sample, sex), names_to = "metric", values_to = "value")
+
+ggplot(alphadiv_values, aes(x=sex, y=value, fill=sex)) +
+  geom_boxplot() +
+  scale_fill_brewer(palette="Set2") +
+  theme_gray() +
+  labs(x = element_blank(), y = element_blank()) +
+  facet_wrap(~metric, scales = "free_y")
+```
+
