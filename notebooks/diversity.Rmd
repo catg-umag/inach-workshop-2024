@@ -7,6 +7,7 @@ output: html_notebook
 library(tidyverse)
 library(RColorBrewer)
 library(vegan)
+library(ggsignif)
 ```
 
 Carga de datos
@@ -44,8 +45,8 @@ rarecurve(count_data_filtered, step = 100, sample=raremax, col = brewer.pal(8, "
 
 ```{r}
 data_richness <- estimateR(count_data_filtered)
-data_evenness <- data.frame(Evenness=diversity(count_data_normalized) / log(specnumber(count_data_normalized)))
-data_shannon <- data.frame(Shannon=diversity(count_data_normalized, index = "shannon"))
+data_evenness <- data.frame(Evenness=diversity(count_data_filtered) / log(specnumber(count_data_filtered)))
+data_shannon <- data.frame(Shannon=diversity(count_data_filtered, index = "shannon"))
 
 data_alphadiv <- bind_cols(metadata,  t(data_richness), data_shannon, data_evenness)
 ```
@@ -57,9 +58,21 @@ alphadiv_values <- data_alphadiv %>%
 
 ggplot(alphadiv_values, aes(x=sex, y=value, fill=sex)) +
   geom_boxplot() +
+  geom_point() +
+  geom_signif(
+    comparisons = list(c("Male", "Female"))#,
+    # map_signif_level = TRUE
+  ) +
+  scale_y_continuous(expand = c(0.1, 0)) +
   scale_fill_brewer(palette="Set2") +
   theme_gray() +
   labs(x = element_blank(), y = element_blank()) +
   facet_wrap(~metric, scales = "free_y")
+```
+
+# Diversidad beta
+
+```{r}
+
 ```
 
